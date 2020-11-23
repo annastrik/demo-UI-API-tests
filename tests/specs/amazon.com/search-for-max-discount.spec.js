@@ -1,26 +1,22 @@
 import {expect} from 'chai';
+import HomePage from '../../_pages/amazon.com/HomePage';
+import ProductsListPage from '../../_pages/amazon.com/ProductsListPage';
+import ProductPage from '../../_pages/amazon.com/ProductPage';
+import ShoppingCartPage from '../../_pages/amazon.com/ShoppingCartPage';
 
-describe('TEST AMAZON PAGE', () => {
-  before('go to amazom.com', () => {
-    browser.url('https://www.amazon.com/');
-    browser.maximizeWindow();
+describe('SEARCH FOR MAXIMUM DISCOUNT', () => {
+  before('should open amazom.com', () => {
+    HomePage.open();
   });
 
-  it('should search for product', () =>{
-    browser.$('//input[@id="twotabsearchtextbox"]').setValue('party heels lifestride');
-    browser.pause(500);
-    browser.$('//input[@type="submit"]').click();
-    browser.pause(500);
+  it('should search for specific products', () =>{
+    HomePage.submitSearch('party heels lifestride');
   });
 
-  it('should sort by department', () =>{
-    browser.$('//select[@id="searchDropdownBox"]').selectByVisibleText('Clothing, Shoes & Jewelry');
-    browser.pause(500);
-  });
-
-  it('should sort by `prime` option', () =>{
-    browser.$$('//i[@class="a-icon a-icon-checkbox"]')[0].click();
-    browser.pause(500);
+  it('should apply `prime` filter on search result', () =>{
+    ProductsListPage.primeFilterApply();
+    browser.pause(2000);
+    expect(ProductsListPage.primeFilterIsSelected).true;
   });
 
   let max = 0;
@@ -34,13 +30,12 @@ describe('TEST AMAZON PAGE', () => {
         */
     while (true) {
       browser.pause(500);
-      const products = $$('//div[@data-index]');
-      const count = products.length;
-      for (let j = 1; j <= count; j++) {
-        if ($(`(${'//div[@data-index]'})[${j}]//span[@class = "a-price a-text-price"]`).isExisting()) {
-          const originalPrice = $(`(${'//div[@data-index]'})[${j}]//span[@class = "a-price a-text-price"]`).getText().slice(1);
-          const discountPrice = $(`(${'//div[@data-index]'})[${j}]//span[@class = "a-price"]`).getText().replace(/\s/g, '.').slice(1);
-          const discountPercent = (+originalPrice / +discountPrice).toFixed(2);
+      const productsOnOnePageCount = ProductsListPage.productsOnOnePageCount;
+      for (let j = 1; j <= productsOnOnePageCount; j++) {
+        if (ProductsListPage.discountExists(j)) {
+          const discountedPrice = ProductsListPage.discountedPriceValue(j);
+          const newPrice = ProductsListPage.newPriceValue(j);
+          const discountPercent = (+ProductsListPage.discountedPriceValue(j) / +ProductsListPage.newPriceValue(j)).toFixed(2);
           if (+discountPercent > max) {
             max = +discountPercent;
             maxDiscountProductLink = $(`(${'//div[@data-index]'})[${j}]//a`).getAttribute('href');

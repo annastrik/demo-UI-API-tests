@@ -1,6 +1,6 @@
 import {expect} from 'chai';
-import HomePage from '../_pages/HomePage';
-import ProductsListPage from '../_pages/ProductsListPage';
+import HomePage from '../../_pages/webstaurantstore.com/HomePage';
+import ProductsListPage from '../../_pages/webstaurantstore.com/ProductsListPage';
 
 describe('PRODUCT SEARCH AND FILTER', () => {
   before('should open www.webstaurantstore.com', () => {

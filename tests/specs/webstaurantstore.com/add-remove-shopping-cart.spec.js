@@ -1,8 +1,8 @@
 import {expect} from 'chai';
-import HomePage from '../_pages/HomePage';
-import ProductsListPage from '../_pages/ProductsListPage';
-import ProductPage from '../_pages/ProductPage';
-import ShoppingCartPage from '../_pages/ShoppingCartPage';
+import HomePage from '../../_pages/webstaurantstore.com/HomePage';
+import ProductsListPage from '../../_pages/webstaurantstore.com/ProductsListPage';
+import ProductPage from '../../_pages/webstaurantstore.com/ProductPage';
+import ShoppingCartPage from '../../_pages/webstaurantstore.com/ShoppingCartPage';
 
 describe('ADD REMOVE SHOPPING CART', () => {
   before('should open www.webstaurantstore.com', () => {
