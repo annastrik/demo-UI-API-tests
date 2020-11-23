@@ -35,8 +35,20 @@ describe('DOCTOR SEARCH', () => {
   it('should verify that displayed all doctors work on selected date', () => {
     const allDoctors = browser.$$('//div[@data-test-id="doctor-card-search-results"]');
     for (let i = 1; i <= allDoctors.length; i++){
-      const timeSlotsCount = $$(`(//div[@data-test-id="doctor-card-search-results"])[${i}]//button[@data-ga-action="clickTable"]`).length;
-      expect(timeSlotsCount).to.be.above(0);
+      //browser.$(`(//div[@data-test-id="doctor-card-search-results"])[${i}]//div[@class="slots-buttons__item"][1]`).waitForDisplayed();
+      browser.pause(800);
+      //const allBooked = browser.$(`(//div[@data-test-id="doctor-card-search-results"])[${i}]//span[@class="clinic-slots__caption-date"]`).getText();
+      //console.log('textttttttttttttt '+ i + '   ' +allBooked);
+      try{
+        browser.pause(800);
+        const timeSlotsCount = $$(`(//div[@data-test-id="doctor-card-search-results"])[${i}]//button[@data-ga-action="clickTable"]`).length;
+        console.log('nrrrrrrrrrrrr ' + i +  '   ' + timeSlotsCount);
+        expect(timeSlotsCount).to.be.above(0);
+      } catch (e) {
+        //const allBooked = browser.$(`(//div[@data-test-id="doctor-card-search-results"])[${i}]//span[@class="clinic-slots__caption-date"]`).getText();
+        //console.log('texttttttttttt' + i+'  '+allBooked);
+        expect(browser.$(`(//div[@data-test-id="doctor-card-search-results"])[${i}]//span[@class="clinic-slots__caption-date"]`).getText()).to.include('У врача все занято');
+      }
     }
   });
 });

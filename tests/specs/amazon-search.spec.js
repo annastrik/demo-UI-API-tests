@@ -1,4 +1,4 @@
-const { expect } = require('chai');
+import {expect} from 'chai';
 
 describe('TEST AMAZON PAGE', () => {
   before('go to amazom.com', () => {
