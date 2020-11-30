@@ -10,18 +10,18 @@ describe('SEARCH FOR MAXIMUM DISCOUNT', () => {
   });
 
   it('should search for specific products', () =>{
-    HomePage.submitSearch('party heels lifestride');
+    HomePage.submitSearch('party heels');
+    expect(ProductsListPage.pageIsUploaded).true;
   });
 
   it('should apply `prime` filter on search result', () =>{
     ProductsListPage.primeFilterApply();
-    browser.pause(2000);
     expect(ProductsListPage.primeFilterIsSelected).true;
   });
 
   let max = 0;
   let maxDiscountProductLink;
-  let productInListTitle;
+  let productIdOnProductPage;
 
   it('should find the product with the maximum discount %', () =>{
     /* the below loop takes all products on the page one by one and checks if there is the discounted price, if yes,
@@ -29,59 +29,45 @@ describe('SEARCH FOR MAXIMUM DISCOUNT', () => {
         the product with the highest discount percentage on a page
         */
     while (true) {
-      browser.pause(500);
       const productsOnOnePageCount = ProductsListPage.productsOnOnePageCount;
-      for (let j = 1; j <= productsOnOnePageCount; j++) {
-        if (ProductsListPage.discountExists(j)) {
-          const discountedPrice = ProductsListPage.discountedPriceValue(j);
-          const newPrice = ProductsListPage.newPriceValue(j);
-          const discountPercent = (+ProductsListPage.discountedPriceValue(j) / +ProductsListPage.newPriceValue(j)).toFixed(2);
-          if (+discountPercent > max) {
-            max = +discountPercent;
-            maxDiscountProductLink = $(`(${'//div[@data-index]'})[${j}]//a`).getAttribute('href');
+      for (let i = 1; i <= productsOnOnePageCount; i++) {
+        if (ProductsListPage.discountExists(i)) {
+          if (ProductsListPage.discountPercent(i) > max) {
+            max = ProductsListPage.discountPercent(i);
+            maxDiscountProductLink = ProductsListPage.maxDiscountProductLink(i);
           }
         }
       }
-      browser.$('//ul[@class="a-pagination"]').scrollIntoView();
-      browser.pause(500);
-      const nextButton = browser.$('//ul[@class="a-pagination"]//a[text() = "Next"]');
-      if (nextButton.isClickable()) {
-        nextButton.click();
-        browser.pause(500);
+      if (ProductsListPage.nextPageBtnIsActive) {
+        ProductsListPage.goToNextPage();
       } else {break;}
     }
   });
 
   it('should open the product with maximum discount and add it to bag', () =>{
-    browser.url(maxDiscountProductLink);
-    browser.pause(200);
+    ProductPage.openProduct(maxDiscountProductLink);
     /* There are several options on amazon product page that affect the scenarios the product is added to the cart:
          - sometimes there is `size` selection on a product page, sometimes not - thus the first `if` is added below;
          - sometimes selected size is unavailable, so `Add to cart` button does not show - thus the second `if` is added and
          a loop that keeps selecting other size until one becomes available and `Add to cart`button appears.
          */
-    const sizeSelection = browser.$('//select[@id="native_dropdown_selected_size_name"]');
-    const addToCartBtn= browser.$('//input[@id="add-to-cart-button"]');
-    if (sizeSelection.isExisting()) {
+    if (ProductPage.sizeSelectionAvailable) {
       for (let i = 1; i < 10; i++) {
-        sizeSelection.selectByIndex(i);
-        if (addToCartBtn.isExisting()) {
-          browser.pause(1000);
-          productInListTitle = browser.$('//div[@id="centerCol"]//div[@id="averageCustomerReviews"]').getAttribute('data-asin');
-          addToCartBtn.click();
-          browser.pause(1000); break;
+        ProductPage.selectSize(i);
+        if (ProductPage.productAvailable) {
+          productIdOnProductPage = ProductPage.productIdOnProductPage;
+          ProductPage.addProductToCart();
+          break;
         }
       }
     } else {
-      addToCartBtn.click();
-      browser.pause(600);
+      ProductPage.addProductToCart();
     }
   });
 
   it('should check that the correct item has been added to the cart', () =>{
-    browser.$('//a[@id="nav-cart"]').click();
-    browser.refresh();
-    const productInCartTitle = browser.$('//div[@data-name="Active Items"]//div[@data-asin]').getAttribute('data-asin');
-    expect((productInCartTitle).includes(productInListTitle)).true;
+    ProductPage.openShoppingCart();
+    expect(ShoppingCartPage.shoppingCartIsUploaded).true;
+    expect((ShoppingCartPage.productIdInShoppingCart).includes(productIdOnProductPage)).true;
   });
 });
