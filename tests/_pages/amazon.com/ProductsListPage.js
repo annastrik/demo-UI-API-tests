@@ -11,19 +11,27 @@ class ProductsListPage extends BasePage {
   }
 
   get primeFilter() {
-    return browser.$$('//i[@class="a-icon a-icon-checkbox"]')[0];
+    return browser.$('//li[@aria-label="Free Shipping by Amazon"]//i[@class="a-icon a-icon-checkbox"]');
   }
 
   get primeFilterChkBox() {
-    return browser.$$('//i[@class="a-icon a-icon-checkbox"]/../input[@type="checkbox"]')[0];
+    return browser.$('//li[@aria-label="Free Shipping by Amazon"]//input[@type="checkbox"]');
   }
 
   get primeFilterIsSelected() {
     return this.primeFilterChkBox.isSelected();
   }
 
+  filter(name) {
+    return browser.$(`//span[text()="${name}"]`);
+  }
+
+  filterIsApplied(name) {
+    return this.filter(name).getAttribute('class').includes('a-text-bold');
+  }
+
   get productsOnOnePageCount() {
-    return browser.$$('//div[@data-index]').length;
+    return browser.$$('//div[@data-component-type="s-search-result" and not(contains(@class, "AdHolder"))]').length;
   }
 
   discountedPrice(index) {
@@ -62,9 +70,28 @@ class ProductsListPage extends BasePage {
     return this.nextPageBtn.getAttribute('class') !== 'a-disabled a-last';
   }
 
+  get resultsInfo(){
+    return browser.$('//h1//span');
+  }
+
+  get calculatedProductsTotal(){
+    return +this.resultsInfo.getText().split(' ')[2];
+  }
+
+  get calculatedProductsPerPage(){
+    return +this.resultsInfo.getText().split(' ')[0].split('-')[1];
+  }
+
+  get totalPages(){
+    return Math.ceil(this.calculatedProductsTotal/this.calculatedProductsPerPage);
+  }
+
   primeFilterApply() {
     super.clickElement(this.primeFilter);
-    browser.pause(1000);
+  }
+
+  filterApply(name) {
+    super.clickElement(this.filter(name));
   }
 
   goToNextPage(){

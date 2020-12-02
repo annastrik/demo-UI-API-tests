@@ -1,4 +1,5 @@
 import BasePage from './BasePage';
+import { titleTxt } from '../../_data/amazon.com/shoppingCartPage.data';
 
 class ShoppingCartPage extends BasePage {
 
@@ -7,7 +8,7 @@ class ShoppingCartPage extends BasePage {
   }
 
   get shoppingCartIsUploaded(){
-    return browser.waitUntil(() => this.title === 'Amazon.com Shopping Cart');
+    return browser.waitUntil(() => this.title === titleTxt);
   }
 
   get productIdInShoppingCart() {

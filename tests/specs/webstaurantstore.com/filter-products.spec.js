@@ -1,6 +1,8 @@
 import {expect} from 'chai';
 import HomePage from '../../_pages/webstaurantstore.com/HomePage';
 import ProductsListPage from '../../_pages/webstaurantstore.com/ProductsListPage';
+import { searchWords, category } from '../../_data/webstaurantstore.com/homePage.data';
+import { filters } from '../../_data/webstaurantstore.com/productsListPage.data';
 
 describe('FILTER FUNCTION', () => {
   before('should open www.webstaurantstore.com', () => {
@@ -8,8 +10,8 @@ describe('FILTER FUNCTION', () => {
   });
 
   it('should search for specific products', () => {
-    HomePage.submitSearch('stainless steel table');
-    HomePage.openCategory('Stainless Steel Work Tables with Undershelf');
+    HomePage.submitSearch(searchWords.s1);
+    HomePage.openCategory(category.tablesWithUndershelf);
   });
 
   it('should apply "Plus Eligible" filter on search result', () => {
@@ -18,8 +20,8 @@ describe('FILTER FUNCTION', () => {
   });
 
   it('should apply "Light Duty" filter on search result and check that no filter been removed', () => {
-    ProductsListPage.lightDutyFilterApply();
-    expect(ProductsListPage.lightDutyFilterIsSelected).true;
+    ProductsListPage.filterApply(filters.lightDuty);
+    expect(ProductsListPage.filterIsSelected(filters.lightDuty)).true;
     expect(ProductsListPage.plusFilterIsSelected).true;
   });
 });

@@ -1,4 +1,5 @@
 import BasePage from './BasePage';
+import { notifications } from '../../_data/webstaurantstore.com/shoppingCartPage.data';
 
 class ShoppingCartPage extends BasePage {
 
@@ -51,7 +52,7 @@ class ShoppingCartPage extends BasePage {
   }
 
   waitForEmptyCartMsg() {
-    browser.waitUntil(() => this.emptyCartMsg === 'Your cart is empty.');
+    browser.waitUntil(() => this.emptyCartMsg === notifications.emptyCart);
   }
 
   lastProductInShopCartExists(index){

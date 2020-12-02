@@ -1,4 +1,6 @@
 import BasePage from './BasePage';
+import {expect} from "chai";
+import {titleTxt} from "../../_data/amazon.com/homePage.data";
 
 class ProductPage extends BasePage {
 
@@ -39,7 +41,7 @@ class ProductPage extends BasePage {
   }
 
   openProduct(url) {
-    browser.url(url);
+    super.open(url);
     this.header.waitForDisplayed();
   }
 

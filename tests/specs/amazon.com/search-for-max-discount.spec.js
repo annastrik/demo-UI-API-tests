@@ -3,6 +3,7 @@ import HomePage from '../../_pages/amazon.com/HomePage';
 import ProductsListPage from '../../_pages/amazon.com/ProductsListPage';
 import ProductPage from '../../_pages/amazon.com/ProductPage';
 import ShoppingCartPage from '../../_pages/amazon.com/ShoppingCartPage';
+import { searchWords } from '../../_data/amazon.com/homePage.data';
 
 describe('SEARCH FOR MAXIMUM DISCOUNT', () => {
   before('should open amazom.com', () => {
@@ -10,7 +11,7 @@ describe('SEARCH FOR MAXIMUM DISCOUNT', () => {
   });
 
   it('should search for specific products', () =>{
-    HomePage.submitSearch('party heels');
+    HomePage.submitSearch(searchWords.s2);
     expect(ProductsListPage.pageIsUploaded).true;
   });
 
@@ -24,9 +25,9 @@ describe('SEARCH FOR MAXIMUM DISCOUNT', () => {
   let productIdOnProductPage;
 
   it('should find the product with the maximum discount %', () =>{
-    /* the below loop takes all products on the page one by one and checks if there is the discounted price, if yes,
-        it takes two prices (original and discounted) and calculates the percentage of discount, then it finds
-        the product with the highest discount percentage on a page
+    /* the below loop takes all products (except `sponsored`) on the page one by one and checks if
+        there is the discounted price, if yes, it takes two prices (original and discounted) and calculates
+        the percentage of discount, then it finds the product with the highest discount percentage on a page
         */
     while (true) {
       const productsOnOnePageCount = ProductsListPage.productsOnOnePageCount;

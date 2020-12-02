@@ -1,4 +1,5 @@
 import BasePage from './BasePage';
+import { titleTxt } from '../../_data/webstaurantstore.com/shoppingCartPage.data';
 
 class ProductsListPage extends BasePage {
 
@@ -22,32 +23,20 @@ class ProductsListPage extends BasePage {
     return browser.$('//li[@data-test="PlusFilter"]//input[@type="checkbox"]');
   }
 
-  get lightDutyFilter() {
-    return browser.$('//span[text()="Light Duty"]/../label[@class="wss-checkbox clearfix"]');
-  }
-
-  get lightDutyFilterChkBox() {
-    return browser.$('//span[text()="Light Duty"]/../label[@class="wss-checkbox clearfix"]/input[@type="checkbox"]');
-  }
-
   get plusFilterIsSelected() {
     return this.plusFilterChkBox.isSelected();
   }
 
-  get lightDutyFilterIsSelected() {
-    return this.lightDutyFilterChkBox.isSelected();
+  filter(name) {
+    return browser.$(`//span[text()="${name}"]/../label[@class="wss-checkbox clearfix"]`);
   }
 
-  get slidingDoorsFilter() {
-    return browser.$('//span[text()="Sliding"]/../label[@class="wss-checkbox clearfix"]');
+  filterChkBox(name) {
+    return browser.$(`//span[text()="${name}"]/../label[@class="wss-checkbox clearfix"]/input[@type="checkbox"]`);
   }
 
-  get slidingDoorsFilterChkBox() {
-    return browser.$('//span[text()="Sliding"]/../label[@class="wss-checkbox clearfix"]/input[@type="checkbox"]');
-  }
-
-  get slidingDoorsFilterIsSelected() {
-    return this.slidingDoorsFilterChkBox.isSelected();
+  filterIsSelected(name) {
+    return this.filterChkBox(name).isSelected();
   }
 
   get allProductsCount() {
@@ -89,7 +78,7 @@ class ProductsListPage extends BasePage {
 
   openShoppingCart() {
     super.clickElement(this.shoppingCartBtn);
-    browser.waitUntil(() => browser.getTitle() === 'WebstaurantStore Cart');
+    browser.waitUntil(() => browser.getTitle() === titleTxt);
   }
 
   plusFilterApply() {
@@ -97,14 +86,9 @@ class ProductsListPage extends BasePage {
     super.clickElement(this.plusFilter);
   }
 
-  lightDutyFilterApply() {
-    this.lightDutyFilter.scrollIntoView();
-    super.clickElement(this.lightDutyFilter);
-  }
-
-  slidingDoorsFilterApply() {
-    this.slidingDoorsFilter.scrollIntoView();
-    super.clickElement(this.slidingDoorsFilter);
+  filterApply(name) {
+    this.filter(name).scrollIntoView();
+    super.clickElement(this.filter(name));
   }
 
   get productsOnLastPageCount() {

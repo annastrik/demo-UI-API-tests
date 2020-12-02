@@ -1,6 +1,8 @@
 import {expect} from 'chai';
 import HomePage from '../../_pages/webstaurantstore.com/HomePage';
 import ProductsListPage from '../../_pages/webstaurantstore.com/ProductsListPage';
+import { searchWords, category } from '../../_data/webstaurantstore.com/homePage.data';
+import { filters } from '../../_data/webstaurantstore.com/productsListPage.data';
 
 describe('PRODUCT SEARCH AND FILTER', () => {
   before('should open www.webstaurantstore.com', () => {
@@ -8,13 +10,13 @@ describe('PRODUCT SEARCH AND FILTER', () => {
   });
 
   it('should search for specific products', () => {
-    HomePage.submitSearch('stainless steel table');
-    HomePage.openCategory('Stainless Steel Enclosed Base Commercial Work Tables');
+    HomePage.submitSearch(searchWords.s1);
+    HomePage.openCategory(category.enclosedBaseCommercial);
   });
 
   it('should apply "Sliding Doors" filter on search result', () => {
-    ProductsListPage.slidingDoorsFilterApply();
-    expect(ProductsListPage.slidingDoorsFilterIsSelected).true;
+    ProductsListPage.filterApply(filters.slidingDoors);
+    expect(ProductsListPage.filterIsSelected(filters.slidingDoors)).true;
   });
 
   it('should check if search results and number of pages are correct', () => {

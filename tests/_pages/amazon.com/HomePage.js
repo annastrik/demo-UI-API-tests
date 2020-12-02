@@ -1,5 +1,6 @@
 import BasePage from './BasePage';
 import {expect} from 'chai';
+import { titleTxt } from '../../_data/amazon.com/homePage.data';
 
 class HomePage extends BasePage {
 
@@ -17,7 +18,7 @@ class HomePage extends BasePage {
 
   open() {
     super.open('https://www.amazon.com/');
-    expect(this.title).eq('Amazon.com: Online Shopping for Electronics, Apparel, Computers, Books, DVDs & more');
+    expect(this.title).eq(titleTxt);
     browser.maximizeWindow();
   }
 

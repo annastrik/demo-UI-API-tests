@@ -3,6 +3,8 @@ import HomePage from '../../_pages/webstaurantstore.com/HomePage';
 import ProductsListPage from '../../_pages/webstaurantstore.com/ProductsListPage';
 import ProductPage from '../../_pages/webstaurantstore.com/ProductPage';
 import ShoppingCartPage from '../../_pages/webstaurantstore.com/ShoppingCartPage';
+import { searchWords, category } from '../../_data/webstaurantstore.com/homePage.data';
+import { headingTxt } from '../../_data/webstaurantstore.com/shoppingCartPage.data';
 
 describe('ADD REMOVE SHOPPING CART', () => {
   before('should open www.webstaurantstore.com', () => {
@@ -11,10 +13,11 @@ describe('ADD REMOVE SHOPPING CART', () => {
 
   let firstOpenedItemIdOnProductPage;
   let addedProductsCount = 0;
+  const nr = 4;
 
   it('should search for specific products', () => {
-    HomePage.submitSearch('stainless steel table');
-    HomePage.openCategory('Stainless Steel Work Tables with Undershelf');
+    HomePage.submitSearch(searchWords.s1);
+    HomePage.openCategory(category.tablesWithUndershelf);
   });
 
   it('should click on a product in the list and verify the correct product`s page is opened', () => {
@@ -30,8 +33,8 @@ describe('ADD REMOVE SHOPPING CART', () => {
     browser.back();
   });
 
-  it('should add 3 more products to shopping cart from products list', () => {
-    for (let i = 2; addedProductsCount <= 3; i++) {
+  it(`should add ${nr-1} more products to shopping cart from products list`, () => {
+    for (let i = 2; addedProductsCount <= nr-1; i++) {
       if (ProductsListPage.addToCartBtn(i).isExisting()){  // some products might be sold out
         ProductsListPage.addProductToCart(i);
         addedProductsCount++;
@@ -41,19 +44,19 @@ describe('ADD REMOVE SHOPPING CART', () => {
 
   it('should open shopping cart', () => {
     ProductsListPage.openShoppingCart();
-    expect(ShoppingCartPage.heading).eq('Cart');
+    expect(ShoppingCartPage.heading).eq(headingTxt);
   });
 
   it('should verify the first added product is the last one in shopping cart', () => {
     expect(ShoppingCartPage.lastItemIdInShopCart(addedProductsCount)).eq(firstOpenedItemIdOnProductPage);
   });
 
-  it('should verify there are 4 products in shopping cart', () => {
-    expect(ShoppingCartPage.productsInShopCartCount).eq(4);
+  it(`should verify there are ${nr} products in shopping cart`, () => {
+    expect(ShoppingCartPage.productsInShopCartCount).eq(nr);
   });
 
-  it('should delete 2 products from the shopping cart using `x` icons', () => {
-    for (let i = 1; i <= 2; i++) {
+  it(`should delete ${nr-2} products from the shopping cart using 'x' icons`, () => {
+    for (let i = 1; i <= nr-2; i++) {
       ShoppingCartPage.elementsAreLoaded([ShoppingCartPage.checkoutBtn]);
       ShoppingCartPage.deleteProduct();
     }
