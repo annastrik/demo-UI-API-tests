@@ -1,8 +1,8 @@
 import {expect} from 'chai';
-import HomePage from '../../_pages/amazon.com/HomePage';
-import ProductsListPage from '../../_pages/amazon.com/ProductsListPage';
-import { filters } from '../../_data/amazon.com/productsListPage.data';
-import { searchWords } from '../../_data/amazon.com/homePage.data';
+import HomePage from '../../_pages/Amazon.com/HomePage';
+import ProductsListPage from '../../_pages/Amazon.com/ProductsListPage';
+import { filters } from '../../_data/Amazon.com/productsListPage.data';
+import { searchWords } from '../../_data/Amazon.com/homePage.data';
 
 describe('VERIFY PAGINATION FOR SEARCH RESULTS', () => {
   before('should open amazom.com', () => {

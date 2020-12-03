@@ -1,5 +1,5 @@
 import BasePage from './BasePage';
-import { titleTxt } from '../../_data/webstaurantstore.com/shoppingCartPage.data';
+import { titleTxt } from '../../_data/Webstaurantstore.com/shoppingCartPage.data';
 
 class ProductsListPage extends BasePage {
 

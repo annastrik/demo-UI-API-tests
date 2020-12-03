@@ -1,5 +1,5 @@
 import BasePage from './BasePage';
-import { titleTxt } from '../../_data/amazon.com/shoppingCartPage.data';
+import { titleTxt } from '../../_data/Amazon.com/shoppingCartPage.data';
 
 class ShoppingCartPage extends BasePage {
 

@@ -1,9 +1,9 @@
 import {expect} from 'chai';
-import HomePage from '../../_pages/amazon.com/HomePage';
-import ProductsListPage from '../../_pages/amazon.com/ProductsListPage';
-import ProductPage from '../../_pages/amazon.com/ProductPage';
-import ShoppingCartPage from '../../_pages/amazon.com/ShoppingCartPage';
-import { searchWords } from '../../_data/amazon.com/homePage.data';
+import HomePage from '../../_pages/Amazon.com/HomePage';
+import ProductsListPage from '../../_pages/Amazon.com/ProductsListPage';
+import ProductPage from '../../_pages/Amazon.com/ProductPage';
+import ShoppingCartPage from '../../_pages/Amazon.com/ShoppingCartPage';
+import { searchWords } from '../../_data/Amazon.com/homePage.data';
 
 describe('SEARCH FOR MAXIMUM DISCOUNT', () => {
   before('should open amazom.com', () => {

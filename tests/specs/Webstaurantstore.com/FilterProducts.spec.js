@@ -1,8 +1,8 @@
 import {expect} from 'chai';
-import HomePage from '../../_pages/webstaurantstore.com/HomePage';
-import ProductsListPage from '../../_pages/webstaurantstore.com/ProductsListPage';
-import { searchWords, category } from '../../_data/webstaurantstore.com/homePage.data';
-import { filters } from '../../_data/webstaurantstore.com/productsListPage.data';
+import HomePage from '../../_pages/Webstaurantstore.com/HomePage';
+import ProductsListPage from '../../_pages/Webstaurantstore.com/ProductsListPage';
+import { searchWords, category } from '../../_data/Webstaurantstore.com/homePage.data';
+import { filters } from '../../_data/Webstaurantstore.com/productsListPage.data';
 
 describe('FILTER FUNCTION', () => {
   before('should open www.webstaurantstore.com', () => {

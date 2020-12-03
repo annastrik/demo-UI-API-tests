@@ -1,6 +1,6 @@
 import BasePage from './BasePage';
 import {expect} from 'chai';
-import { titleTxt } from '../../_data/webstaurantstore.com/homePage.data';
+import { titleTxt } from '../../_data/Webstaurantstore.com/homePage.data';
 
 class HomePage extends BasePage {
 

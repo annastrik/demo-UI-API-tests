@@ -1,10 +1,10 @@
 import {expect} from 'chai';
-import HomePage from '../../_pages/webstaurantstore.com/HomePage';
-import ProductsListPage from '../../_pages/webstaurantstore.com/ProductsListPage';
-import ProductPage from '../../_pages/webstaurantstore.com/ProductPage';
-import ShoppingCartPage from '../../_pages/webstaurantstore.com/ShoppingCartPage';
-import { searchWords, category } from '../../_data/webstaurantstore.com/homePage.data';
-import { headingTxt } from '../../_data/webstaurantstore.com/shoppingCartPage.data';
+import HomePage from '../../_pages/Webstaurantstore.com/HomePage';
+import ProductsListPage from '../../_pages/Webstaurantstore.com/ProductsListPage';
+import ProductPage from '../../_pages/Webstaurantstore.com/ProductPage';
+import ShoppingCartPage from '../../_pages/Webstaurantstore.com/ShoppingCartPage';
+import { searchWords, category } from '../../_data/Webstaurantstore.com/homePage.data';
+import { headingTxt } from '../../_data/Webstaurantstore.com/shoppingCartPage.data';
 
 describe('ADD REMOVE SHOPPING CART', () => {
   before('should open www.webstaurantstore.com', () => {

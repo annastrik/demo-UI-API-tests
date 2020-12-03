@@ -1,5 +1,5 @@
 import BasePage from './BasePage';
-import { notifications } from '../../_data/webstaurantstore.com/shoppingCartPage.data';
+import { notifications } from '../../_data/Webstaurantstore.com/shoppingCartPage.data';
 
 class ShoppingCartPage extends BasePage {
 
