@@ -1,4 +1,4 @@
-const bottomMenuBtnsWithHoverOvers = {
+const bottomMenuBtnsWithHoverOversTxt = {
   Value: ['TopHap Estimate', 'TopHap Estimate $/ft² ', 'Value Appreciation',
     'TopHap Rental Estimate', 'Rental $/ft² Estimate', 'TopHap Estimate Accuracy',
     'Rental Estimate Accuracy'],
@@ -23,8 +23,8 @@ const bottomMenuBtnsWithHoverOvers = {
     'College Bound'],
 };
 
-const bottomMenuBtns = Object.keys(bottomMenuBtnsWithHoverOvers);
+const bottomMenuBtns = Object.keys(bottomMenuBtnsWithHoverOversTxt);
 
 const bottomMenuBtnsCount = bottomMenuBtns.length;
 
-export { bottomMenuBtnsWithHoverOvers,bottomMenuBtns, bottomMenuBtnsCount };
+export { bottomMenuBtnsWithHoverOversTxt,bottomMenuBtns, bottomMenuBtnsCount };

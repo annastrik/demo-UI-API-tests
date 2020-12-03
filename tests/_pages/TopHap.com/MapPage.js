@@ -1,6 +1,5 @@
 import BasePage from './BasePage';
-import {bottomMenuBtns, bottomMenuBtnsWithHoverOvers} from "../../_data/TopHap.com/mapPage.data";
-import {expect} from "chai";
+import {bottomMenuBtns, bottomMenuBtnsWithHoverOversTxt} from "../../_data/TopHap.com/mapPage.data";
 
 class MapPage extends BasePage {
 
@@ -8,16 +7,24 @@ class MapPage extends BasePage {
     return browser.$(`//div[text()="${text}"]`);
   }
 
-  hoverOverItems(text) {
+  // bottomMenuBtnsCount() {
+  //   return bottomMenuBtns.length;
+  // }
+
+  hoverOverItemsSelector(text) {
     return browser.$(`//button[text()="${text}"]`);
   }
 
-  hoverOvers(index) {
-    return bottomMenuBtnsWithHoverOvers[bottomMenuBtns[index]];
+  hoverOverTxt(index) {
+    return bottomMenuBtnsWithHoverOversTxt[bottomMenuBtns[index]];
   }
 
-  hoverOverItem(index) {
-    return this.hoverOverItems(this.hoverOvers(index));
+  hoverOverItemsPerBtnCount(index){
+    return this.hoverOverTxt(index).length;
+  }
+
+  hoverOverItem(index, index2){
+    return this.hoverOverItemsSelector(this.hoverOverTxt(index)[index2]);
   }
 
   moveToMenuBtn(text) {
