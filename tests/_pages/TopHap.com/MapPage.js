@@ -1,5 +1,5 @@
 import BasePage from './BasePage';
-import {bottomMenuBtns, bottomMenuBtnsWithHoverOversTxt} from "../../_data/TopHap.com/mapPage.data";
+import { bottomMenuBtnsWithHoverOversTxt, bottomMenuBtns} from '../../_data/TopHap.com/mapPage.data';
 
 class MapPage extends BasePage {
 
@@ -7,9 +7,9 @@ class MapPage extends BasePage {
     return browser.$(`//div[text()="${text}"]`);
   }
 
-  // bottomMenuBtnsCount() {
-  //   return bottomMenuBtns.length;
-  // }
+  get bottomMenuBtnsCount(){
+    return bottomMenuBtns.length;
+  }
 
   hoverOverItemsSelector(text) {
     return browser.$(`//button[text()="${text}"]`);

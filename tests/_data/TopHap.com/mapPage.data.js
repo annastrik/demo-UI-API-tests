@@ -25,6 +25,4 @@ const bottomMenuBtnsWithHoverOversTxt = {
 
 const bottomMenuBtns = Object.keys(bottomMenuBtnsWithHoverOversTxt);
 
-const bottomMenuBtnsCount = bottomMenuBtns.length;
-
-export { bottomMenuBtnsWithHoverOversTxt,bottomMenuBtns, bottomMenuBtnsCount };
+export { bottomMenuBtnsWithHoverOversTxt,bottomMenuBtns };
