@@ -15,38 +15,27 @@ describe('Sort A-Z and Z-A Price Test', () => {
 
   it('should search by zip code and sort the results', () => {
     MapPage.submitSearchApplySortingAndFiltersAZ(ZIP_CODE);
-    browser.pause(4000);
+    browser.pause(2000);
   });
 
-  it('should search by zip code and sort the results', () => {
+  it('should verify that items in search result are ordered from smallest to biggest', () => {
     let prevPrice = -Infinity;
     let resultSearchResultList = [];
     let index = 0;
     let currentSearchResultList = browser.$$('.th-left .th-price span');
-    browser.pause(2000);
     while (currentSearchResultList.length > 0) {
       let currentElement = currentSearchResultList[index];
       if (index === currentSearchResultList.length - 1) {
         currentElement.scrollIntoView();
-        browser.pause(3000);
         resultSearchResultList.push(...currentSearchResultList);
         let newSearchResultList = browser.$$('.th-left .th-price span');
-        let newSearchResultListRemoved = [];
-        for (let el of newSearchResultList){
-          let temp = false;
-          for (let el2 of resultSearchResultList){
-            if (el.isEqual(el2)){
-              temp = true; break;
-            }
-          }
-          if (temp===false){
-            newSearchResultListRemoved.push(el);
-          }
-        }
-        currentSearchResultList = newSearchResultListRemoved;
+        newSearchResultList = newSearchResultList.filter(
+          el1=> !resultSearchResultList.some(el2=>el2.isEqual(el1)));
+        currentSearchResultList = newSearchResultList;
         index = -1;
       }
-      expect(+(currentElement.getText().replace(/[$,]/g, ''))).to.be.at.least(prevPrice);
+      let currentPrice = +(currentElement.getText().replace(/[$,]/g, ''));
+      expect(currentPrice).at.least(prevPrice);
       prevPrice = +(currentElement.getText().replace(/[$,]/g, ''));
       index++;
     }

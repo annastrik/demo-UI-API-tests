@@ -71,9 +71,13 @@ class MapPage extends BasePage {
     return browser.$('//button[text()="Price"]');
   }
 
-  get currentSearchResultList(){
-    return browser.$('.th-left .th-price');
+  currentSearchResult(index){
+    return browser.$$('.th-property-card')[index];
   }
+
+  // currentSearchResult(index){
+  //   return this.currentSearchResultList[index];
+  // }
 
   moveToMenuBtn(text) {
     super.moveToElement(this.menuBtn(text));
