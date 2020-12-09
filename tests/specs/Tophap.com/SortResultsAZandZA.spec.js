@@ -13,31 +13,31 @@ describe('Sort A-Z and Z-A Price Test', () => {
     HomePage.tryForFreeStart();
   });
 
-  it('should search by zip code and sort the results', () => {
+  it('should search by zip code and sort the results from smallest to biggest', () => {
     MapPage.submitSearchApplySortingAndFiltersAZ(ZIP_CODE);
-    browser.pause(2000);
   });
 
   it('should verify that items in search result are ordered from smallest to biggest', () => {
-    let prevPrice = -Infinity;
-    let resultSearchResultList = [];
-    let index = 0;
-    let currentSearchResultList = browser.$$('.th-left .th-price span');
-    while (currentSearchResultList.length > 0) {
-      let currentElement = currentSearchResultList[index];
-      if (index === currentSearchResultList.length - 1) {
-        currentElement.scrollIntoView();
-        resultSearchResultList.push(...currentSearchResultList);
-        let newSearchResultList = browser.$$('.th-left .th-price span');
-        newSearchResultList = newSearchResultList.filter(
-          el1=> !resultSearchResultList.some(el2=>el2.isEqual(el1)));
-        currentSearchResultList = newSearchResultList;
-        index = -1;
-      }
-      let currentPrice = +(currentElement.getText().replace(/[$,]/g, ''));
+    let prevPrice = 0;
+    let prices = MapPage.getPriceFromSearchItemResult;
+    expect(prices.length).above(0);
+    for (let currentPrice of prices) {
       expect(currentPrice).at.least(prevPrice);
-      prevPrice = +(currentElement.getText().replace(/[$,]/g, ''));
-      index++;
+      prevPrice = currentPrice;
+    }
+  });
+
+  it('should search by zip code and sort the results from biggest to smallest', () => {
+    MapPage.submitSearchApplySortingAndFiltersZA(ZIP_CODE);
+  });
+
+  it('should verify that items in search result are ordered from biggest to smallest', () => {
+    let prevPrice = Infinity;
+    let prices = MapPage.getPriceFromSearchItemResult;
+    expect(prices.length).above(0);
+    for (let currentPrice of prices) {
+      expect(currentPrice).to.be.at.most(prevPrice);
+      prevPrice = currentPrice;
     }
   });
 });

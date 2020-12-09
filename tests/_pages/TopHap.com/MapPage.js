@@ -71,13 +71,9 @@ class MapPage extends BasePage {
     return browser.$('//button[text()="Price"]');
   }
 
-  currentSearchResult(index){
-    return browser.$$('.th-property-card')[index];
+  get searchItems(){
+    return browser.$$('.th-property-card');
   }
-
-  // currentSearchResult(index){
-  //   return this.currentSearchResultList[index];
-  // }
 
   moveToMenuBtn(text) {
     super.moveToElement(this.menuBtn(text));
@@ -115,6 +111,7 @@ class MapPage extends BasePage {
     this.submitSearch(zipCode);
     this.applySort(orderAtoZorZtoA, this.priceSorting);
     this.applyFilter(this.propertyStatusFilterMenu, this.activePropertyFilter);
+    browser.pause(1500);
   }
 
   submitSearchApplySortingAndFiltersAZ(zipCode){
@@ -123,6 +120,36 @@ class MapPage extends BasePage {
 
   submitSearchApplySortingAndFiltersZA(zipCode){
     this.submitSearchApplySortingAndFilters(this.sortZABtn, zipCode);
+  }
+
+  getResultsList(element) {
+    let resultSearchResultList = [];
+    let fullSearchElementsList = [];
+    let currentSearchResultList = this.searchItems;
+    let index = currentSearchResultList.length - 1;
+    while (currentSearchResultList.length > 0) {
+      resultSearchResultList.push(...currentSearchResultList);
+      fullSearchElementsList.push(...currentSearchResultList.map(el=>
+        el.$(element).getText()));
+      let currentElement = currentSearchResultList[index];
+      currentElement.scrollIntoView();
+      browser.pause(1000);
+      let newSearchResultList = this.searchItems;
+      newSearchResultList = newSearchResultList.filter(el=>
+        !fullSearchElementsList.includes(
+          el.$(element).getText()));
+      currentSearchResultList = newSearchResultList;
+      index = currentSearchResultList.length - 1;
+    }
+    return fullSearchElementsList;
+  }
+
+  get getPriceFromSearchItemResult(){
+    return this.getResultsList('.th-left .th-price span').map(el=>+el.replace(/[$,]/g, ''));
+  }
+
+  get getAddressFromSearchItemResult(){
+    return this.getResultsList('.th-address');
   }
 }
 export default new MapPage();
