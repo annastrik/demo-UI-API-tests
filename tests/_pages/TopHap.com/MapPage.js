@@ -1,5 +1,5 @@
 import BasePage from './BasePage';
-import { bottomMenuBtnsWithHoverOversTxt, bottomMenuBtns} from '../../_data/TopHap.com/mapPage.data';
+import { bottomMenuBtnsWithHoverOversTxt, bottomMenuBtns, } from '../../_data/TopHap.com/mapPage.data';
 
 class MapPage extends BasePage {
 
@@ -114,6 +114,13 @@ class MapPage extends BasePage {
     browser.pause(1500);
   }
 
+  submitSearchApplyFilters(zipCode){
+    this.clearOldSearchAndFilterRecords();
+    this.submitSearch(zipCode);
+    this.applyFilter(this.propertyStatusFilterMenu, this.activePropertyFilter);
+    browser.pause(1500);
+  }
+
   submitSearchApplySortingAndFiltersAZ(zipCode){
     this.submitSearchApplySortingAndFilters(this.sortAZBtn, zipCode);
   }
@@ -122,22 +129,25 @@ class MapPage extends BasePage {
     this.submitSearchApplySortingAndFilters(this.sortZABtn, zipCode);
   }
 
-  getResultsList(element) {
+  getResultsList(locator) {
     let resultSearchResultList = [];
     let fullSearchElementsList = [];
+    let uniqueAddressesList = [];
     let currentSearchResultList = this.searchItems;
     let index = currentSearchResultList.length - 1;
     while (currentSearchResultList.length > 0) {
       resultSearchResultList.push(...currentSearchResultList);
       fullSearchElementsList.push(...currentSearchResultList.map(el=>
-        el.$(element).getText()));
+        el.$(locator).getText()));
+      uniqueAddressesList.push(...currentSearchResultList.map(el=>
+        el.$('.th-address').getText()));
       let currentElement = currentSearchResultList[index];
       currentElement.scrollIntoView();
       browser.pause(1000);
       let newSearchResultList = this.searchItems;
       newSearchResultList = newSearchResultList.filter(el=>
-        !fullSearchElementsList.includes(
-          el.$(element).getText()));
+        !uniqueAddressesList.includes(
+          el.$('.th-address').getText()));
       currentSearchResultList = newSearchResultList;
       index = currentSearchResultList.length - 1;
     }
@@ -146,6 +156,10 @@ class MapPage extends BasePage {
 
   get getPriceFromSearchItemResult(){
     return this.getResultsList('.th-left .th-price span').map(el=>+el.replace(/[$,]/g, ''));
+  }
+
+  get getZipFromSearchItemResult(){
+    return this.getResultsList('.th-region').map(el=>el.split(', ')[1].split(' ')[1]);
   }
 
   get getAddressFromSearchItemResult(){
