@@ -21,10 +21,9 @@ describe('Sort A-Z and Z-A Price Test', () => {
     let prevPrice = 0;
     let prices = MapPage.getPriceFromSearchItemResult;
     expect(prices.length).above(0);
-    for (let currentPrice of prices) {
-      expect(currentPrice).at.least(prevPrice);
+    prices.forEach(currentPrice=>{expect(currentPrice).at.least(prevPrice);
       prevPrice = currentPrice;
-    }
+    });
   });
 
   it('should search by zip code and sort the results from biggest to smallest', () => {
@@ -35,9 +34,8 @@ describe('Sort A-Z and Z-A Price Test', () => {
     let prevPrice = Infinity;
     let prices = MapPage.getPriceFromSearchItemResult;
     expect(prices.length).above(0);
-    for (let currentPrice of prices) {
-      expect(currentPrice).to.be.at.most(prevPrice);
+    prices.forEach(currentPrice=>{expect(currentPrice).at.most(prevPrice);
       prevPrice = currentPrice;
-    }
+    });
   });
 });

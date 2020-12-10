@@ -34,12 +34,7 @@ describe('ADD REMOVE SHOPPING CART', () => {
   });
 
   it(`should add ${nr-1} more products to shopping cart from products list`, () => {
-    for (let i = 2; addedProductsCount <= nr-1; i++) {
-      if (ProductsListPage.addToCartBtn(i).isExisting()){  // some products might be sold out
-        ProductsListPage.addProductToCart(i);
-        addedProductsCount++;
-      }
-    }
+    addedProductsCount += ProductsListPage.addProductsToCart(nr-1);
   });
 
   it('should open shopping cart', () => {
@@ -56,14 +51,10 @@ describe('ADD REMOVE SHOPPING CART', () => {
   });
 
   it(`should delete ${nr-2} products from the shopping cart using 'x' icons`, () => {
-    for (let i = 1; i <= nr-2; i++) {
-      ShoppingCartPage.elementsAreLoaded([ShoppingCartPage.checkoutBtn]);
-      ShoppingCartPage.deleteProduct();
-    }
+    ShoppingCartPage.deleteProducts(nr-2);
   });
 
   it('should delete the rest of the products from the shopping cart using `Empty Cart` button', () => {
-    ShoppingCartPage.elementsAreLoaded([ShoppingCartPage.checkoutBtn]);
     ShoppingCartPage.emptyCart();
     expect(ShoppingCartPage.lastProductInShopCartExists(addedProductsCount)).false;
   });

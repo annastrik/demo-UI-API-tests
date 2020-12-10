@@ -98,5 +98,28 @@ class ProductsListPage extends BasePage {
     super.clickElement(this.nextPageBtn);
     browser.pause(1500);
   }
+
+  get findMaxDiscountProduct() {
+    let max = 0;
+    let maxDiscountProductLink;
+    /* the below loop takes all products (except `sponsored`) on the page one by one and checks if
+            there is the discounted price, if yes, it takes two prices (original and discounted) and calculates
+            the percentage of discount, then it finds the product with the highest discount percentage on a page
+            */
+    while (true) {
+      const productsOnOnePageCount = this.productsOnOnePageCount;
+      for (let i = 1; i <= productsOnOnePageCount; i++) {
+        if (this.discountExists(i)) {
+          if (this.discountPercent(i) > max) {
+            max = this.discountPercent(i);
+            maxDiscountProductLink = this.maxDiscountProductLink(i);
+          }
+        }
+      }
+      if (this.nextPageBtnIsActive) {
+        this.goToNextPage();
+      } else {break;}
+    } return maxDiscountProductLink;
+  }
 }
 export default new ProductsListPage();

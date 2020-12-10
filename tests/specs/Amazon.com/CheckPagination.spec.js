@@ -2,15 +2,16 @@ import {expect} from 'chai';
 import HomePage from '../../_pages/Amazon.com/HomePage';
 import ProductsListPage from '../../_pages/Amazon.com/ProductsListPage';
 import { filters } from '../../_data/Amazon.com/productsListPage.data';
-import { searchWords } from '../../_data/Amazon.com/homePage.data';
 
 describe('VERIFY PAGINATION FOR SEARCH RESULTS', () => {
-  before('should open amazom.com', () => {
+  before('should open amazon.com', () => {
     HomePage.open();
   });
 
+  const SEARCH_WORD = 'humidifier';
+
   it('should search for specific products', () =>{
-    HomePage.submitSearch(searchWords.s1);
+    HomePage.submitSearch(SEARCH_WORD);
     expect(ProductsListPage.pageIsUploaded).true;
   });
 

@@ -32,7 +32,7 @@ class ShoppingCartPage extends BasePage {
   }
 
   get checkoutBtn() {
-    return browser.$('//button[@class="standardCheckoutButton btn btn-checkout btn-block clears"]');
+    return browser.$('.standardCheckoutButton');
   }
 
   lastProductInShopCart(index) {
@@ -60,9 +60,17 @@ class ShoppingCartPage extends BasePage {
   }
 
   emptyCart(){
+    super.elementsAreLoaded([this.checkoutBtn]);
     super.clickElement(this.emptyCartBtn);
     super.clickElement(this.confirmEmptyCart);
     this.waitForEmptyCartMsg();
+  }
+
+  deleteProducts(number){
+    for (let i = 1; i <= number; i++) {
+      super.elementsAreLoaded([this.checkoutBtn]);
+      this.deleteProduct();
+    }
   }
 }
 export default new ShoppingCartPage();

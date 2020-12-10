@@ -20,8 +20,6 @@ describe('SEARCH BY ZIP CODE Test', () => {
   it('should verify that returned results are in searched zip code area', () => {
     let zipCodes = MapPage.getZipFromSearchItemResult;
     expect(zipCodes.length).above(0);
-    //zipCodes.map(el=>expect(el).eq(ZIP_CODE));
-    //expect(zipCodes.filter(el=>el!==ZIP_CODE).length).eq(0);
     expect(zipCodes.length).eq(zipCodes.filter(el=>el===ZIP_CODE).length);
   });
 });

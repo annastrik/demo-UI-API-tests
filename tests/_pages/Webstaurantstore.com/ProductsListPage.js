@@ -1,5 +1,6 @@
 import BasePage from './BasePage';
 import { titleTxt } from '../../_data/Webstaurantstore.com/shoppingCartPage.data';
+import ShoppingCartPage from "./ShoppingCartPage";
 
 class ProductsListPage extends BasePage {
 
@@ -47,19 +48,19 @@ class ProductsListPage extends BasePage {
     return browser.$$('//div[@class="ag-item gtm-product"]').length;
   }
 
-  productDescription(index){
+  productDescription(index) {
     return browser.$(`(//div[@class="ag-item gtm-product"])[${index}]//a[@data-testid="itemDescription"]`);
   }
 
-  productDescriptionText(index){
+  productDescriptionText(index) {
     return this.productDescription(index).getText().toLowerCase();
   }
 
-  get nextPageBtn(){
+  get nextPageBtn() {
     return browser.$('//li[contains(@class, "rc-pagination-next")]');
   }
 
-  get nextPageBtnIsNotActive(){
+  get nextPageBtnIsNotActive() {
     return this.nextPageBtn.getAttribute('aria-disabled');
   }
 
@@ -71,7 +72,7 @@ class ProductsListPage extends BasePage {
     super.clickElement(this.productIconInProductsList);
   }
 
-  addProductToCart(index){
+  addProductToCart(index) {
     this.addToCartBtn(index).scrollIntoView();
     super.clickElement(this.addToCartBtn(index));
   }
@@ -95,12 +96,23 @@ class ProductsListPage extends BasePage {
     return (+(String(+this.allProductsCount / 100).split('.')[1]));
   }
 
-  scrollToPagination(){
+  scrollToPagination() {
     this.nextPageBtn.scrollIntoView();
   }
 
-  goToNextPage(){
+  goToNextPage() {
     super.clickElement(this.nextPageBtn);
   }
+
+  addProductsToCart(number) {
+    let addedProductsCount = 0;
+    for (let i = 2; addedProductsCount < number; i++) {
+      if (this.addToCartBtn(i).isExisting()) {  // some products might be sold out
+        this.addProductToCart(i);
+        addedProductsCount++;
+      }
+    } return addedProductsCount;
+  }
 }
+
 export default new ProductsListPage();

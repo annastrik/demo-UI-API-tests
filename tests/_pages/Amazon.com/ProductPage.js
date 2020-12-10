@@ -1,6 +1,7 @@
 import BasePage from './BasePage';
-import {expect} from "chai";
-import {titleTxt} from "../../_data/Amazon.com/homePage.data";
+import {expect} from 'chai';
+import {titleTxt} from '../../_data/Amazon.com/homePage.data';
+import ProductsListPage from './ProductsListPage';
 
 class ProductPage extends BasePage {
 
@@ -29,7 +30,7 @@ class ProductPage extends BasePage {
     return browser.$('//div[@id="ppd"]//div[@id="mbc"]').getAttribute('data-asin');
   }
 
-  get shoppingCartBtn(){
+  get shoppingCartBtn() {
     return browser.$('//a[@id="nav-cart"]');
   }
 
@@ -37,7 +38,7 @@ class ProductPage extends BasePage {
     return browser.$('//*[@id="price_inside_buybox"]');
   }
 
-  get checkoutBtn(){
+  get checkoutBtn() {
     return browser.$('//span[@id="hlb-ptc-btn"]');
   }
 
@@ -51,13 +52,34 @@ class ProductPage extends BasePage {
     this.priceOnProductPage.waitForDisplayed();
   }
 
-  addProductToCart(){
+  addProductToCart() {
     super.clickElement(this.addToCartBtn);
     this.checkoutBtn.waitForDisplayed();
   }
 
   openShoppingCart() {
     super.clickElement(this.shoppingCartBtn);
+  }
+
+  get addProductToCartProcess() {
+    let productIdOnProductPage;
+    /* There are several options on amazon product page that affect the scenarios the product is added to the cart:
+         - sometimes there is `size` selection on a product page, sometimes not - thus the first `if` is added below;
+         - sometimes selected size is unavailable, so `Add to cart` button does not show - thus the second `if` is added and
+         a loop that keeps selecting other size until one becomes available and `Add to cart`button appears.
+         */
+    if (this.sizeSelectionAvailable) {
+      for (let i = 1; i < 10; i++) {
+        this.selectSize(i);
+        if (this.productAvailable) {
+          productIdOnProductPage = this.productIdOnProductPage;
+          this.addProductToCart();
+          break;
+        }
+      }
+    } else {
+      this.addProductToCart();
+    } return productIdOnProductPage;
   }
 }
 export default new ProductPage();
