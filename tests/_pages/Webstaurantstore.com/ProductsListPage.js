@@ -17,11 +17,11 @@ class ProductsListPage extends BasePage {
   }
 
   get plusFilter() {
-    return browser.$('//li[@data-test="PlusFilter"]//label[@class="wss-checkbox clearfix"]');
+    return browser.$('//li[@data-createHttpPost="PlusFilter"]//label[@class="wss-checkbox clearfix"]');
   }
 
   get plusFilterChkBox() {
-    return browser.$('//li[@data-test="PlusFilter"]//input[@type="checkbox"]');
+    return browser.$('//li[@data-createHttpPost="PlusFilter"]//input[@type="checkbox"]');
   }
 
   get plusFilterIsSelected() {

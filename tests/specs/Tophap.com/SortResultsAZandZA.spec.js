@@ -19,7 +19,7 @@ describe('Sort A-Z and Z-A Price Test', () => {
 
   it('should verify that items in search result are ordered from smallest to biggest', () => {
     let prevPrice = 0;
-    let prices = MapPage.getPriceFromSearchItemResult;
+    let prices = MapPage.getPriceFromSearchResultOnClient;
     expect(prices.length).above(0);
     prices.forEach(currentPrice=>{expect(currentPrice).at.least(prevPrice);
       prevPrice = currentPrice;
@@ -32,7 +32,7 @@ describe('Sort A-Z and Z-A Price Test', () => {
 
   it('should verify that items in search result are ordered from biggest to smallest', () => {
     let prevPrice = Infinity;
-    let prices = MapPage.getPriceFromSearchItemResult;
+    let prices = MapPage.getPriceFromSearchResultOnClient;
     expect(prices.length).above(0);
     prices.forEach(currentPrice=>{expect(currentPrice).at.most(prevPrice);
       prevPrice = currentPrice;
