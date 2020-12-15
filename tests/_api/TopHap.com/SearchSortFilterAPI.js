@@ -22,5 +22,9 @@ class SearchSortFilterAPI {
   getZipFromSearchResultOnServer(list){
     return list.map(el=>el._source.address.PostalCode);
   }
+
+  getBuiltYearFromSearchResultOnServer(list){
+    return list.map(el=>el._source.rets.Facts.YearBuilt);
+  }
 }
 export default new SearchSortFilterAPI();

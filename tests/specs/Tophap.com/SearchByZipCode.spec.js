@@ -26,6 +26,7 @@ describe('SEARCH BY ZIP CODE Test', () => {
   it('should verify that returned results on client are in searched zip code area', () => {
     uniqueAddressesListOnClient = MapPage.getAddressFromSearchResultOnClient;
     let zipCodesListOnClient = MapPage.getZipFromSearchResultOnClient;
+    console.log('zzzzzzzzzzzzzz '+zipCodesListOnClient);
     expect(zipCodesListOnClient.length).above(0);
     expect(zipCodesListOnClient.length).eq(zipCodesListOnClient.filter(el=>el===ZIP_CODE).length);
   });
@@ -33,8 +34,8 @@ describe('SEARCH BY ZIP CODE Test', () => {
   it('should verify that returned results from server are in searched zip code area', async() => {
     let searchItemListOnServer = [];
     const response = await axios(SearchSortFilter.createHttpPost(SEARCH_URL, BODY))
-      .then(res => res)
-      .catch(err => {console.log('ERROR', err);});
+        .then(res => res)
+        .catch(err => {console.log('ERROR', err);});
     response.data.items.forEach(el=>searchItemListOnServer.push(el));
     const zipCodesListOnServer = SearchSortFilter.getZipFromSearchResultOnServer(searchItemListOnServer);
     expect(zipCodesListOnServer.length).above(0);

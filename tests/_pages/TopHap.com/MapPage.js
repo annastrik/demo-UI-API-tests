@@ -55,11 +55,11 @@ class MapPage extends BasePage {
     return browser.$('//div[text()="Year Built"]');
   }
 
-  get openYearsDropDownMenu(){
-    return browser.$$('.th-year-built-option .MuiAutocomplete-endAdornment');
+  get builtYearFilter(){
+    return browser.$$('.th-year-built-option .th-select-input');
   }
 
-  get filterDropDownMenu(){
+  get statusFilterDropDownMenu(){
     return browser.$('.th-status-option');
   }
 
@@ -98,54 +98,37 @@ class MapPage extends BasePage {
     this.searchResultsMenu.waitForDisplayed();
   }
 
-  applyFilter(filterType, filterOption){
+  openFilterMenu(filterType){
     if (!filterType.isDisplayed()){
       super.clickElement(this.moreFiltersBtn);
     }
     super.clickElement(filterType);
-    //this.filterDropDownMenu.waitForDisplayed();
+  }
+
+  applyPropertyStatusFilter(filterType, filterOption){
+    this.openFilterMenu(filterType);
+    this.statusFilterDropDownMenu.waitForDisplayed();
     super.clickElement(filterOption);
   }
 
-  applyYearBuiltFilter(filterType, year){
-    if (!filterType.isDisplayed()){
-      super.clickElement(this.moreFiltersBtn);
+  setYearInFilter(index,yearFrom){
+    // clearValue does not work in this case, bug either in Webdriver IO or Chromedriver
+    // doubleClick(), keys('Delete') - workaround
+    this.builtYearFilter[index].doubleClick();
+    browser.pause(800);
+    browser.keys('Delete');
+    this.builtYearFilter[index].setValue(yearFrom);
+    this.builtYearFilter[index].click({y: 50 });
+  }
+
+  applyYearBuiltFilter(filterType, yearFrom, yearTo){
+    this.openFilterMenu(filterType);
+    this.setYearInFilter(0, yearFrom);
+    browser.pause(800);
+    if ([...arguments].length === 3 ){
+      this.setYearInFilter(1, yearTo);
+      browser.pause(800);
     }
-    super.clickElement(filterType);
-    super.clickElement(this.openYearsDropDownMenu[0]);
-    browser.pause(1000);
-    let button1 = browser.$$('.th-year-built-option .th-select-input')[0];
-    let button2 = browser.$$('.th-year-built-option .th-select-input')[1];
-    let button3 = browser.$('//div[text()="Stories"]');
-    let button4 = browser.$('//div[text()="Year Built"]');
-    let coordx = button1.getLocation('x');
-    let coordy = button1.getLocation('y');
-    let coordx2 = button2.getLocation('x');
-    let coordy2 = button2.getLocation('y');
-    let coordx3 = button3.getLocation('x');
-    let coordy3 = button3.getLocation('y');
-    let coordx4 = button4.getLocation('x');
-    let coordy4 = button4.getLocation('y');
-    console.log('xxxxxxxxxxxxx '+coordx);
-    console.log('yyyyyyyyyyyyyy '+coordy);
-    console.log('xxxxx222222222 '+coordx2);
-    console.log('yyyyy22222222222 '+coordy2);
-    console.log('xxx33333333333 '+coordx3);
-    console.log('yyy33333333333333 '+coordy3);
-    console.log('44444444444 '+coordx4);
-    console.log('444444444444 '+coordy4);
-    browser.$('.th-year-built-option .th-select-input').moveTo(coordx3,coordy3);
-    //browser.keys('\uE007');
-    //super.moveToElementAndClick(browser.$('//input[contains(@*,"option-11")]'));
-    //browser.$('.th-year-built-option .th-select-input').doubleClick();
-    //browser.keys('Delete');
-    //browser.pause(2000);
-    //browser.$('.th-year-built-option .th-select-input').setValue('2015');
-    browser.pause(2000);
-    //browser.$('//input[@value="2015"]').moveTo(100,200);
-    //browser.pause(2000);
-    //browser.keys('\uE007');
-    //browser.pause(2000);
   }
 
   applySort(orderAtoZorZtoA, sortOption){
@@ -166,14 +149,14 @@ class MapPage extends BasePage {
     this.clearOldSearchAndFilterRecords();
     this.submitSearch(zipCode);
     this.applySort(orderAtoZorZtoA, this.priceSorting);
-    this.applyFilter(this.propertyStatusFilterMenu, this.activePropertyFilter);
+    this.applyPropertyStatusFilter(this.propertyStatusFilterMenu, this.activePropertyFilter);
     browser.pause(1500);
   }
 
   submitSearchApplyFilters(zipCode){
     this.clearOldSearchAndFilterRecords();
     this.submitSearch(zipCode);
-    this.applyFilter(this.propertyStatusFilterMenu, this.activePropertyFilter);
+    this.applyPropertyStatusFilter(this.propertyStatusFilterMenu, this.activePropertyFilter);
     browser.pause(1500);
   }
 
@@ -194,16 +177,16 @@ class MapPage extends BasePage {
     while (currentSearchResultList.length > 0) {
       resultSearchResultList.push(...currentSearchResultList);
       fullSearchElementsList.push(...currentSearchResultList.map(el=>
-        el.$(locator).getText()));
+          el.$(locator).getText()));
       uniqueAddressesList.push(...currentSearchResultList.map(el=>
-        el.$('.th-address').getText()));
+          el.$('.th-address').getText()));
       let currentElement = currentSearchResultList[index];
       currentElement.scrollIntoView();
       browser.pause(1000);
       let newSearchResultList = this.searchItems;
       newSearchResultList = newSearchResultList.filter(el=>
-        !uniqueAddressesList.includes(
-          el.$('.th-address').getText()));
+          !uniqueAddressesList.includes(
+              el.$('.th-address').getText()));
       currentSearchResultList = newSearchResultList;
       index = currentSearchResultList.length - 1;
     }
@@ -221,5 +204,10 @@ class MapPage extends BasePage {
   get getAddressFromSearchResultOnClient(){
     return this.getResultsList('.th-address').map(el=>el.replace('Apt', '').replace('Unit', '').replace('Trlr', '').toUpperCase());
   }
+
+  get getYearBuiltFromSearchResultOnClient(){
+    return this.getResultsList('div:nth-of-type(6) > .th-property-info-value').map(el=>+el);
+  }
+
 }
 export default new MapPage();
