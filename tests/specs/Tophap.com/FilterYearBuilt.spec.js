@@ -27,13 +27,12 @@ describe('FILTER YEAR BUILT TEST', () => {
   });
 
   it('should verify that returned results on client have submitted built year', () => {
-    //uniqueAddressesListOnClient = MapPage.getAddressFromSearchResultOnClient;
-    let yearBuiltListOnClient = MapPage.getYearBuiltFromSearchResultOnClient;
-    console.log('1111111111111 '+yearBuiltListOnClient);
-    console.log('222222222222222 '+yearBuiltListOnClient.length);
+    const yearBuiltAndUniqueAddress = MapPage.getYearBuiltAndUniqueAddressLists;
+    const yearBuiltListOnClient = yearBuiltAndUniqueAddress[0];
     expect(yearBuiltListOnClient.length).above(0);
-    yearBuiltListOnClient.forEach(currentPrice=>{expect(currentPrice).within(+YEAR_FROM, +YEAR_TO);
-    });
+    //yearBuiltListOnClient.forEach(currentPrice=>{expect(currentPrice).within(+YEAR_FROM, +YEAR_TO);});
+    expect(yearBuiltListOnClient.length).eq(yearBuiltListOnClient.filter(el=>el>=YEAR_FROM&&el<=YEAR_TO).length);
+    uniqueAddressesListOnClient = yearBuiltAndUniqueAddress[1];
   });
 
   it('should verify that returned results from server have submitted built year', async() => {
@@ -42,14 +41,13 @@ describe('FILTER YEAR BUILT TEST', () => {
       .then(res => res)
       .catch(err => {console.log('ERROR', err);});
     response.data.items.forEach(el=>searchItemListOnServer.push(el));
-    const builtYearListOnServer = SearchSortFilter.getBuiltYearFromSearchResultOnServer(searchItemListOnServer);
-    console.log('bbbbbbbbbbbbbb '+builtYearListOnServer);
-    expect(builtYearListOnServer.length).above(0);
-    expect(builtYearListOnServer.length).eq(builtYearListOnServer.filter(el=>el>=YEAR_FROM&&el<=YEAR_TO).length);
+    const yearBuiltListOnServer = SearchSortFilter.getYearBuiltFromSearchResultOnServer(searchItemListOnServer);
+    expect(yearBuiltListOnServer.length).above(0);
+    expect(yearBuiltListOnServer.length).eq(yearBuiltListOnServer.filter(el=>el>=YEAR_FROM&&el<=YEAR_TO).length);
     uniqueAddressesListOnServer = SearchSortFilter.getAddressFromSearchResultOnServer(searchItemListOnServer);
   });
-  //
-  // it('should check if returned results from client and server match', async() => {
-  //   expect(uniqueAddressesListOnServer).deep.equal(uniqueAddressesListOnClient);
-  // });
+
+  it('should check if returned results from client and server match', () => {
+    expect(uniqueAddressesListOnServer).deep.equal(uniqueAddressesListOnClient);
+  });
 });

@@ -124,11 +124,10 @@ class MapPage extends BasePage {
   applyYearBuiltFilter(filterType, yearFrom, yearTo){
     this.openFilterMenu(filterType);
     this.setYearInFilter(0, yearFrom);
-    browser.pause(800);
     if ([...arguments].length === 3 ){
       this.setYearInFilter(1, yearTo);
-      browser.pause(800);
     }
+    browser.pause(800);
   }
 
   applySort(orderAtoZorZtoA, sortOption){
@@ -177,37 +176,46 @@ class MapPage extends BasePage {
     while (currentSearchResultList.length > 0) {
       resultSearchResultList.push(...currentSearchResultList);
       fullSearchElementsList.push(...currentSearchResultList.map(el=>
-          el.$(locator).getText()));
+        el.$(locator).getText()));
       uniqueAddressesList.push(...currentSearchResultList.map(el=>
-          el.$('.th-address').getText()));
+        el.$('.th-address').getText()));
       let currentElement = currentSearchResultList[index];
       currentElement.scrollIntoView();
       browser.pause(1000);
       let newSearchResultList = this.searchItems;
       newSearchResultList = newSearchResultList.filter(el=>
-          !uniqueAddressesList.includes(
-              el.$('.th-address').getText()));
+        !uniqueAddressesList.includes(
+          el.$('.th-address').getText()));
       currentSearchResultList = newSearchResultList;
       index = currentSearchResultList.length - 1;
     }
-    return fullSearchElementsList;
+    return [fullSearchElementsList, uniqueAddressesList];
   }
 
-  get getPriceFromSearchResultOnClient(){
-    return this.getResultsList('.th-left .th-price span').map(el=>+el.replace(/[$,]/g, ''));
+  normalizeAddressList(list){
+    return list.map(el=>el.replace('Apt', '').replace('Unit', '').replace('Trlr', '').toUpperCase());
   }
 
-  get getZipFromSearchResultOnClient(){
-    return this.getResultsList('.th-region').map(el=>el.split(', ')[1].split(' ')[1]);
+  get getPriceAndUniqueAddressLists(){
+    const result = this.getResultsList('.th-left .th-price span');
+    return [result[0].map(el=>+el.replace(/[$,]/g, '')),
+      this.normalizeAddressList(result[1])];
   }
 
-  get getAddressFromSearchResultOnClient(){
-    return this.getResultsList('.th-address').map(el=>el.replace('Apt', '').replace('Unit', '').replace('Trlr', '').toUpperCase());
+  get getYearBuiltAndUniqueAddressLists(){
+    const result = this.getResultsList('div:nth-of-type(6) > .th-property-info-value');
+    return [result[0].map(el=>+el),
+      this.normalizeAddressList(result[1])];
   }
 
-  get getYearBuiltFromSearchResultOnClient(){
-    return this.getResultsList('div:nth-of-type(6) > .th-property-info-value').map(el=>+el);
+  get getZipAndUniqueAddressLists(){
+    const result = this.getResultsList('.th-region');
+    return [result[0].map(el=>el.split(', ')[1].split(' ')[1]),
+      this.normalizeAddressList(result[1])];
   }
 
+  get getUniqueAddressList(){
+    return this.normalizeAddressList(this.getResultsList('.th-address')[1]);
+  }
 }
 export default new MapPage();

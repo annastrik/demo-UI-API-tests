@@ -14,11 +14,6 @@ export default class BasePage {
     locator.moveTo();
   }
 
-  moveToElementAndClick(locator) {
-    locator.waitForDisplayed();
-    locator.moveTo().click();
-  }
-
   elementsAreLoaded(elements, timeout = 10000) {
     browser.waitUntil(() => {
       return this.getMissingElements(elements).length === 0;
