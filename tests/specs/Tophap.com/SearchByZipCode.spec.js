@@ -4,7 +4,7 @@ import HomePage from '../../_pages/TopHap.com/HomePage';
 import MapPage from '../../_pages/TopHap.com/MapPage';
 import SearchSortFilter from '../../_api/TopHap.com/SearchSortFilterAPI';
 
-describe('SEARCH BY ZIP CODE Test', () => {
+describe('SEARCH BY ZIP CODE TEST', () => {
   before('should open www.tophap.com', () => {
     HomePage.open();
   });

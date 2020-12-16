@@ -4,7 +4,7 @@ import MapPage from '../../_pages/TopHap.com/MapPage';
 import axios from 'axios';
 import SearchSortFilter from '../../_api/TopHap.com/SearchSortFilterAPI';
 
-describe('Sort A-Z and Z-A Price Test', () => {
+describe('SORT A-Z AND Z-A PRICE TEST', () => {
   before('should open www.tophap.com', () => {
     HomePage.open();
   });

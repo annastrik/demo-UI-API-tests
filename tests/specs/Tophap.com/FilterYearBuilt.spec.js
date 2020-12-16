@@ -30,7 +30,6 @@ describe('FILTER YEAR BUILT TEST', () => {
     const yearBuiltAndUniqueAddress = MapPage.getYearBuiltAndUniqueAddressLists;
     const yearBuiltListOnClient = yearBuiltAndUniqueAddress[0];
     expect(yearBuiltListOnClient.length).above(0);
-    //yearBuiltListOnClient.forEach(currentPrice=>{expect(currentPrice).within(+YEAR_FROM, +YEAR_TO);});
     expect(yearBuiltListOnClient.length).eq(yearBuiltListOnClient.filter(el=>el>=YEAR_FROM&&el<=YEAR_TO).length);
     uniqueAddressesListOnClient = yearBuiltAndUniqueAddress[1];
   });
