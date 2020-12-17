@@ -19,8 +19,9 @@ describe('SEARCH BY ZIP CODE TEST', () => {
     HomePage.tryForFreeStart();
   });
 
-  it('should search by zip code and apply filter', () => {
-    MapPage.submitSearchApplyFilters(ZIP_CODE);
+  it('should search by zip code and apply "property status" filter', () => {
+    MapPage.submitSearch(ZIP_CODE);
+    MapPage.applyPropertyStatusFilter(MapPage.propertyStatusFilterMenu, MapPage.activePropertyFilter);
   });
 
   it('should verify that returned results on client are in searched zip code area', () => {

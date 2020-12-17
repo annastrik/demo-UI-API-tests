@@ -21,7 +21,7 @@ describe('FILTER YEAR BUILT TEST', () => {
     HomePage.tryForFreeStart();
   });
 
-  it('should search by zip code and apply filter', () => {
+  it('should search by zip code and apply "year built" filter', () => {
     MapPage.submitSearch(ZIP_CODE);
     MapPage.applyYearBuiltFilter(MapPage.yearBuiltFilterMenu, YEAR_FROM,YEAR_TO);
   });

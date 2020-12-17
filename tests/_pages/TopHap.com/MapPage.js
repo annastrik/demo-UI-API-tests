@@ -1,6 +1,6 @@
 import BasePage from './BasePage';
-import { bottomMenuBtnsWithHoverOversTxt, bottomMenuBtns, } from '../../_data/TopHap.com/mapPage.data';
-import { movingIsFinished } from '../../_data/TopHap.com/mapPage.data';
+import { bottomMenuBtnsWithHoverOversTxt, bottomMenuBtns, } from '../../_data/TopHap.com/TestHelper.data';
+import { movingIsFinished } from '../../_data/TopHap.com/TestHelper.data';
 
 class MapPage extends BasePage {
 
@@ -26,10 +26,6 @@ class MapPage extends BasePage {
 
   hoverOverItem(index, index2){
     return this.hoverOverItemsSelector(this.hoverOverTxt(index)[index2]);
-  }
-
-  get searchResultsMenu(){
-    return browser.$('//aside[contains(@class,"th-sider")]');
   }
 
   get clearSearchFilterBtns(){
@@ -92,6 +88,10 @@ class MapPage extends BasePage {
     return browser.$('//button[text()="Price"]');
   }
 
+  get propertiesCount(){
+    return browser.$('.th-properties-count');
+  }
+
   get searchItems(){
     return browser.$$('.th-property-card');
   }
@@ -101,10 +101,16 @@ class MapPage extends BasePage {
   }
 
   submitSearch(searchCriteria){
+    this.clearOldSearchAndFilterRecords();
     this.searchInputField.setValue(searchCriteria);
     browser.pause(2000);
     super.clickElement(this.searchBtn);
-    this.searchResultsMenu.waitForDisplayed();
+    this.waitForResultList();
+  }
+
+  waitForResultList(){
+    super.elementsAreLoaded(this.searchItems);
+    browser.waitUntil( () => +this.propertiesCount.getText().split(' ')[0] !== 0);
   }
 
   openFilterMenu(filterType){
@@ -118,6 +124,7 @@ class MapPage extends BasePage {
     this.openFilterMenu(filterType);
     this.statusFilterDropDownMenu.waitForDisplayed();
     super.clickElement(filterOption);
+    this.waitForResultList();
   }
 
   setYearInFilter(index,year){
@@ -141,7 +148,7 @@ class MapPage extends BasePage {
     if ([...arguments].length === 3 ){
       this.setYearInFilter(1, yearTo);
     }
-    browser.pause(800);
+    this.waitForResultList();
   }
 
   applyLivingAreaFilter(filterType, areaFrom, areaTo){
@@ -150,7 +157,7 @@ class MapPage extends BasePage {
     if ([...arguments].length === 3 ){
       this.setLivingAreaSqFtInFilter(1, areaTo);
     }
-    browser.pause(800);
+    this.waitForResultList();
   }
 
   applySort(orderAtoZorZtoA, sortOption){
@@ -172,14 +179,6 @@ class MapPage extends BasePage {
     this.submitSearch(zipCode);
     this.applySort(orderAtoZorZtoA, this.priceSorting);
     this.applyPropertyStatusFilter(this.propertyStatusFilterMenu, this.activePropertyFilter);
-    browser.pause(1500);
-  }
-
-  submitSearchApplyFilters(zipCode){
-    this.clearOldSearchAndFilterRecords();
-    this.submitSearch(zipCode);
-    this.applyPropertyStatusFilter(this.propertyStatusFilterMenu, this.activePropertyFilter);
-    browser.pause(1500);
   }
 
   submitSearchApplySortingAndFiltersAZ(zipCode){
@@ -205,6 +204,7 @@ class MapPage extends BasePage {
       let currentElement = currentSearchResultList[index];
       currentElement.scrollIntoView();
       movingIsFinished(currentElement);
+      //browser.pause(1000);
       let newSearchResultList = this.searchItems;
       newSearchResultList = newSearchResultList.filter(el=>
         !uniqueAddressesList.includes(

@@ -21,7 +21,7 @@ describe('LIVING AREA SQUARE FEET TEST', () => {
     HomePage.tryForFreeStart();
   });
 
-  it('should search by zip code and apply filter', () => {
+  it('should search by zip code and apply "living area sq ft" filter', () => {
     MapPage.submitSearch(ZIP_CODE);
     MapPage.applyLivingAreaFilter(MapPage.livingAreaFilterMenu, AREA_FROM,AREA_TO);
   });
