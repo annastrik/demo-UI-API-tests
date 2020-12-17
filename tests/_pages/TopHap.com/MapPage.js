@@ -1,5 +1,6 @@
 import BasePage from './BasePage';
 import { bottomMenuBtnsWithHoverOversTxt, bottomMenuBtns, } from '../../_data/TopHap.com/mapPage.data';
+import { movingIsFinished } from '../../_data/TopHap.com/mapPage.data';
 
 class MapPage extends BasePage {
 
@@ -55,8 +56,16 @@ class MapPage extends BasePage {
     return browser.$('//div[text()="Year Built"]');
   }
 
+  get livingAreaFilterMenu(){
+    return browser.$('//div[text()="Living Area"]');
+  }
+
   get builtYearFilter(){
     return browser.$$('.th-year-built-option .th-select-input');
+  }
+
+  get livingAreaFilter(){
+    return browser.$$('.th-living-area-option .th-input');
   }
 
   get statusFilterDropDownMenu(){
@@ -111,14 +120,19 @@ class MapPage extends BasePage {
     super.clickElement(filterOption);
   }
 
-  setYearInFilter(index,yearFrom){
+  setYearInFilter(index,year){
     // clearValue does not work in this case, bug either in Webdriver IO or Chromedriver
     // doubleClick(), keys('Delete') - workaround
     this.builtYearFilter[index].doubleClick();
     browser.pause(800);
     browser.keys('Delete');
-    this.builtYearFilter[index].setValue(yearFrom);
+    this.builtYearFilter[index].setValue(year);
     this.builtYearFilter[index].click({y: 50 });
+  }
+
+  setLivingAreaSqFtInFilter(index,area){
+    this.livingAreaFilter[index].setValue(area);
+    browser.keys('\uE007');
   }
 
   applyYearBuiltFilter(filterType, yearFrom, yearTo){
@@ -126,6 +140,15 @@ class MapPage extends BasePage {
     this.setYearInFilter(0, yearFrom);
     if ([...arguments].length === 3 ){
       this.setYearInFilter(1, yearTo);
+    }
+    browser.pause(800);
+  }
+
+  applyLivingAreaFilter(filterType, areaFrom, areaTo){
+    this.openFilterMenu(filterType);
+    this.setLivingAreaSqFtInFilter(0, areaFrom);
+    if ([...arguments].length === 3 ){
+      this.setLivingAreaSqFtInFilter(1, areaTo);
     }
     browser.pause(800);
   }
@@ -181,7 +204,7 @@ class MapPage extends BasePage {
         el.$('.th-address').getText()));
       let currentElement = currentSearchResultList[index];
       currentElement.scrollIntoView();
-      browser.pause(1000);
+      movingIsFinished(currentElement);
       let newSearchResultList = this.searchItems;
       newSearchResultList = newSearchResultList.filter(el=>
         !uniqueAddressesList.includes(
@@ -216,6 +239,12 @@ class MapPage extends BasePage {
 
   get getUniqueAddressList(){
     return this.normalizeAddressList(this.getResultsList('.th-address')[1]);
+  }
+
+  get getLivingSqFtAndUniqueAddressLists(){
+    const result = this.getResultsList('div:nth-of-type(3) > .th-property-info-value');
+    return [result[0].map(el=>+el.replace(/,/g, '')),
+      this.normalizeAddressList(result[1])];
   }
 }
 export default new MapPage();

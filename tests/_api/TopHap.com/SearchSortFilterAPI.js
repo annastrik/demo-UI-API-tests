@@ -26,5 +26,9 @@ class SearchSortFilterAPI {
   getYearBuiltFromSearchResultOnServer(list){
     return list.map(el=>el._source.rets.Facts.YearBuilt);
   }
+
+  getLivingSqFtFromSearchResultOnServer(list){
+    return list.map(el=>el._source.rets.Facts.LivingSqft);
+  }
 }
 export default new SearchSortFilterAPI();
