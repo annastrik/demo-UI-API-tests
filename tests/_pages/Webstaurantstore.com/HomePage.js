@@ -1,6 +1,6 @@
 import BasePage from './BasePage';
 import {expect} from 'chai';
-import { titleTxt } from '../../_data/Webstaurantstore.com/homePage.data';
+import { pageTitles } from '../../_data/Webstaurantstore.com/resources.data';
 
 class HomePage extends BasePage {
 
@@ -26,7 +26,7 @@ class HomePage extends BasePage {
 
   open() {
     super.open('https://www.webstaurantstore.com/');
-    expect(this.title).eq(titleTxt);
+    expect(this.title).eq(pageTitles.homePage);
     browser.maximizeWindow();
   }
 

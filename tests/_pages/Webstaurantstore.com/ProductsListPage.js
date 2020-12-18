@@ -1,6 +1,5 @@
 import BasePage from './BasePage';
-import { titleTxt } from '../../_data/Webstaurantstore.com/shoppingCartPage.data';
-import ShoppingCartPage from "./ShoppingCartPage";
+import { pageTitles } from '../../_data/Webstaurantstore.com/resources.data';
 
 class ProductsListPage extends BasePage {
 
@@ -24,16 +23,12 @@ class ProductsListPage extends BasePage {
     return browser.$('//li[@data-createHttpPost="PlusFilter"]//input[@type="checkbox"]');
   }
 
-  get plusFilterIsSelected() {
-    return this.plusFilterChkBox.isSelected();
-  }
-
   filter(name) {
-    return browser.$(`//span[text()="${name}"]/../label[@class="wss-checkbox clearfix"]`);
+    return browser.$(`//span[contains(text(),"${name}")]/../label`);
   }
 
   filterChkBox(name) {
-    return browser.$(`//span[text()="${name}"]/../label[@class="wss-checkbox clearfix"]/input[@type="checkbox"]`);
+    return browser.$(`//span[contains(text(),"${name}")]/../label//input[@type="checkbox"]`);
   }
 
   filterIsSelected(name) {
@@ -41,7 +36,7 @@ class ProductsListPage extends BasePage {
   }
 
   get allProductsCount() {
-    return browser.$('//span[text()="Sliding"]/../span[@class="count"]').getText();
+    return browser.$('//a[@href="/43755/stainless-steel-enclosed-base-commercial-work-tables.html"]/label/span[2]').getText();
   }
 
   get productsOnOnePageCount() {
@@ -79,12 +74,7 @@ class ProductsListPage extends BasePage {
 
   openShoppingCart() {
     super.clickElement(this.shoppingCartBtn);
-    browser.waitUntil(() => browser.getTitle() === titleTxt);
-  }
-
-  plusFilterApply() {
-    this.plusFilter.scrollIntoView();
-    super.clickElement(this.plusFilter);
+    browser.waitUntil(() => browser.getTitle() === pageTitles.shoppingCart);
   }
 
   filterApply(name) {

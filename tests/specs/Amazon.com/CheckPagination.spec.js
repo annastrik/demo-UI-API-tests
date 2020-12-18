@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import HomePage from '../../_pages/Amazon.com/HomePage';
 import ProductsListPage from '../../_pages/Amazon.com/ProductsListPage';
-import { filters } from '../../_data/Amazon.com/productsListPage.data';
+import { filters } from '../../_data/Amazon.com/resources.data';
 
 describe('VERIFY PAGINATION FOR SEARCH RESULTS', () => {
   before('should open amazon.com', () => {

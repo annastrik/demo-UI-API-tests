@@ -1,7 +1,4 @@
 import BasePage from './BasePage';
-import {expect} from 'chai';
-import {titleTxt} from '../../_data/Amazon.com/homePage.data';
-import ProductsListPage from './ProductsListPage';
 
 class ProductPage extends BasePage {
 
@@ -26,8 +23,9 @@ class ProductPage extends BasePage {
   }
 
   get productIdOnProductPage() {
-    //return browser.$('//div[@id="centerCol"]//div[@id="averageCustomerReviews"]').getAttribute('data-asin');
-    return browser.$('//div[@id="ppd"]//div[@id="mbc"]').getAttribute('data-asin');
+    //these selectors are constantly changing on amazon page
+    return browser.$('//div[@id="centerCol"]//div[@id="averageCustomerReviews"]').getAttribute('data-asin');
+    //return browser.$('//div[@id="ppd"]//div[@id="mbc"]').getAttribute('data-asin');
   }
 
   get shoppingCartBtn() {

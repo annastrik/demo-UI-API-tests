@@ -3,8 +3,7 @@ import HomePage from '../../_pages/Webstaurantstore.com/HomePage';
 import ProductsListPage from '../../_pages/Webstaurantstore.com/ProductsListPage';
 import ProductPage from '../../_pages/Webstaurantstore.com/ProductPage';
 import ShoppingCartPage from '../../_pages/Webstaurantstore.com/ShoppingCartPage';
-import { searchWords, category } from '../../_data/Webstaurantstore.com/homePage.data';
-import { headingTxt } from '../../_data/Webstaurantstore.com/shoppingCartPage.data';
+import { productCategory, pageHeadings } from '../../_data/Webstaurantstore.com/resources.data';
 
 describe('ADD REMOVE SHOPPING CART', () => {
   before('should open www.webstaurantstore.com', () => {
@@ -16,8 +15,8 @@ describe('ADD REMOVE SHOPPING CART', () => {
   const nr = 4;
 
   it('should search for specific products', () => {
-    HomePage.submitSearch(searchWords.s1);
-    HomePage.openCategory(category.tablesWithUndershelf);
+    HomePage.submitSearch('stainless steel table');
+    HomePage.openCategory(productCategory.tablesWithUndershelf);
   });
 
   it('should click on a product in the list and verify the correct product`s page is opened', () => {
@@ -39,7 +38,7 @@ describe('ADD REMOVE SHOPPING CART', () => {
 
   it('should open shopping cart', () => {
     ProductsListPage.openShoppingCart();
-    expect(ShoppingCartPage.heading).eq(headingTxt);
+    expect(ShoppingCartPage.heading).eq(pageHeadings.shoppingCart);
   });
 
   it('should verify the first added product is the last one in shopping cart', () => {

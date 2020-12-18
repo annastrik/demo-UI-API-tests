@@ -28,18 +28,13 @@ const bottomMenuBtns = Object.keys(bottomMenuBtnsWithHoverOversTxt);
 const movingIsFinished = (element) => {
   let x = 0;
   let y = 0;
-  while (true) {
-    if (element.isDisplayed() === true) {
-      while (true) {
-        let location = element.getLocation();
-        if (x === location.x && y === location.y) {
-          return element;
-        } else {
-          x = location.x;
-          y = location.y;
-        }
-      }
+  while (element.isDisplayed()) {
+    let location = element.getLocation();
+    if (x === location.x && y === location.y) {
+      return element;
     }
+    x = location.x;
+    y = location.y;
   }
 };
 

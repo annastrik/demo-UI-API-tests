@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import HomePage from '../../_pages/TopHap.com/HomePage';
 import MapPage from '../../_pages/TopHap.com/MapPage';
-import { bottomMenuBtns } from '../../_data/TopHap.com/TestHelper.data';
+import { bottomMenuBtns } from '../../_data/TopHap.com/resources.data';
 
 describe('HOVER OVER MENUS TEST', () => {
   before('should open www.tophap.com', () => {
