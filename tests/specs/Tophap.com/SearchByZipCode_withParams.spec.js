@@ -14,8 +14,8 @@ const parameters = [
     BODY: {'userId':'06w68ORSVjhStJgolHjNFk6zenB2','size':499,'sort':[{'option':'status_timestamp','dir':'desc'}],'filters':{'bounds':[[-122.14976921890491,37.25911139303838],[-122.05148678109423,37.455549327980236]],'zones':['000394518'],'metricsFilter':{'bathrooms':{},'bedrooms':{},'garage':{},'living_area':{},'lot_size_acres':{},'ownership_days':{},'period':{},'price':{},'price_per_sqft':{},'property_type':{'values':[]},'rental':false,'status':{'values':['Active'],'close_date':{'min':'now-3M/d'}},'stories':{},'year_built':{},'description':''}},'ultralight':true}
   }
 ];
-let uniqueAddressesListOnClient =[];
-let uniqueAddressesListOnServer = [];
+let uniqueAddressesListOnClient ={};
+let uniqueAddressesListOnServer = {};
 
 describe('SEARCH BY ZIP CODE TEST', () => {
   before('should open www.tophap.com', () => {
@@ -33,7 +33,7 @@ describe('SEARCH BY ZIP CODE TEST', () => {
     const zipCodesListOnClient = zipAndUniqueAddress[0];
     expect(zipCodesListOnClient.length).above(0);
     expect(zipCodesListOnClient.length).eq(zipCodesListOnClient.filter(el=>el===value.ZIP_CODE).length);
-    uniqueAddressesListOnClient.push({[value.ZIP_CODE]: zipAndUniqueAddress[1]});
+    uniqueAddressesListOnClient[value.ZIP_CODE] = zipAndUniqueAddress[1];
   });
 
   itParam('should verify that returned results from server are in searched zip code area', parameters, async(value) => {
@@ -45,7 +45,7 @@ describe('SEARCH BY ZIP CODE TEST', () => {
     const zipCodesListOnServer = SearchSortFilter.getZipFromSearchResultOnServer(searchItemListOnServer);
     expect(zipCodesListOnServer.length).above(0);
     expect(zipCodesListOnServer.length).eq(zipCodesListOnServer.filter(el=>el===value.ZIP_CODE).length);
-    uniqueAddressesListOnServer.push({[value.ZIP_CODE]: SearchSortFilter.getAddressFromSearchResultOnServer(searchItemListOnServer)});
+    uniqueAddressesListOnServer[value.ZIP_CODE] = SearchSortFilter.getAddressFromSearchResultOnServer(searchItemListOnServer);
   });
 
   it('should check if returned results from client and server match', () => {
