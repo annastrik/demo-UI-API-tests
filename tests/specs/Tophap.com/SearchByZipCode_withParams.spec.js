@@ -23,7 +23,7 @@ describe('SEARCH BY ZIP CODE TEST', () => {
   });
 
   it('should open map through `Try for free` option', () => {
-    HomePage.tryForFreeStart();
+    HomePage.openMapAsTryForFree();
   });
 
   itParam('should verify that returned results on client are in searched zip code area', parameters, (value) => {

@@ -19,7 +19,7 @@ class HomePage extends BasePage {
     browser.maximizeWindow();
   }
 
-  tryForFreeStart() {
+  openMapAsTryForFree() {
     super.clickElement(this.tryForFreeBtn);
     this.closeWelcome();
   }

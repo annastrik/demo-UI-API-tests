@@ -9,7 +9,7 @@ describe('HOVER OVER MENUS TEST', () => {
   });
 
   it('should open map through `Try for free` option', () => {
-    HomePage.tryForFreeStart();
+    HomePage.openMapAsTryForFree();
   });
 
   it('should check all hover over items for all bottom menu buttons', () => {

@@ -17,7 +17,7 @@ describe('SORT A-Z AND Z-A PRICE TEST', () => {
   });
 
   it('should open map through `Try for free` option', () => {
-    HomePage.tryForFreeStart();
+    HomePage.openMapAsTryForFree();
   });
 
   it('should search by zip code and sort the results from smallest to biggest', () => {

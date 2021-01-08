@@ -26,7 +26,7 @@ describe('LIVING AREA SQUARE FEET TEST', () => {
   });
 
   it('should open map through `Try for free` option', () => {
-    HomePage.tryForFreeStart();
+    HomePage.openMapAsTryForFree();
   });
 
   itParam('should verify that returned results on client have submitted living area sq ft', parameters, (value) => {
@@ -36,7 +36,7 @@ describe('LIVING AREA SQUARE FEET TEST', () => {
     const livingSqFtListOnClient = livingSqFtAndUniqueAddress[0];
     expect(livingSqFtListOnClient.length).above(0);
     expect(livingSqFtListOnClient.length).eq(livingSqFtListOnClient.filter(
-      el=>el>=value.AREA_FROM&&el<=value.AREA_TO).length);
+      el => el>=value.AREA_FROM && el<=value.AREA_TO).length);
     uniqueAddressesListOnClient[`${value.AREA_FROM}-${value.AREA_TO}`] = livingSqFtAndUniqueAddress[1];
   });
 
@@ -49,13 +49,13 @@ describe('LIVING AREA SQUARE FEET TEST', () => {
     const livingSqFtListOnServer = SearchSortFilter.getLivingSqFtFromSearchResultOnServer(searchItemListOnServer);
     expect(livingSqFtListOnServer.length).above(0);
     expect(livingSqFtListOnServer.length).eq(livingSqFtListOnServer.filter(
-      el=>el>=value.AREA_FROM&&el<=value.AREA_TO).length);
+      el => el>=value.AREA_FROM && el<=value.AREA_TO).length);
     uniqueAddressesListOnServer[`${value.AREA_FROM}-${value.AREA_TO}`]
         = SearchSortFilter.getAddressFromSearchResultOnServer(searchItemListOnServer);
   });
 
   it('should check if returned results from client and server match', () => {
-    // another option to compare lists, if result lists returned from server are ordered differently and
+    // another option to compare lists, if result lists returned from server are in different order and
     // expect().deep.equal() does not work:
     expect(Object.keys(uniqueAddressesListOnServer)).deep.equal(Object.keys(uniqueAddressesListOnClient));
     for (let el of Object.keys(uniqueAddressesListOnServer)) {

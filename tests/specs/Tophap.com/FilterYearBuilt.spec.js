@@ -18,7 +18,7 @@ describe('FILTER YEAR BUILT TEST', () => {
   });
 
   it('should open map through `Try for free` option', () => {
-    HomePage.tryForFreeStart();
+    HomePage.openMapAsTryForFree();
   });
 
   it('should search by zip code and apply "year built" filter', () => {
