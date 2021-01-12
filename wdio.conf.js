@@ -17,8 +17,13 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   specs: [
-    './tests/**/*.spec.js'
+    './tests/specs/**/*.spec.js'
   ],
+  suites: {
+    webrest: ['./tests/specs/Webstaurantstore.com/*spec.js'],
+    amazon: ['./tests/specs/Amazon.com/*spec.js'],
+    tophap: ['./tests/specs/Tophap.com/*spec.js'],
+  },
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -50,7 +55,7 @@ exports.config = {
     // maxInstances can get overwritten per capability. So if you have an in-house Selenium
     // grid with only 5 firefox instances available you can make sure that not more than
     // 5 instances get started at a time.
-    maxInstances: 5,
+    maxInstances: 1,
     //
     browserName: 'chrome',
     acceptInsecureCerts: true
