@@ -23,6 +23,10 @@ class SearchSortFilterAPI {
     return list.map(el=>el._source.address.PostalCode);
   }
 
+  getCityFromSearchResultOnServer(list){
+    return list.map(el=>el._source.address.City);
+  }
+
   getYearBuiltFromSearchResultOnServer(list){
     return list.map(el=>el._source.rets.Facts.YearBuilt);
   }

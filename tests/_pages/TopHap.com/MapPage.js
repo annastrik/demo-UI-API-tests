@@ -237,6 +237,12 @@ class MapPage extends BasePage {
       this.normalizeAddressList(result[1])];
   }
 
+  get getCityAndUniqueAddressLists(){
+    const result = this.getResultsList('.th-region');
+    return [result[0].map(el=>el.split(', ')[0].toUpperCase()),
+      this.normalizeAddressList(result[1])];
+  }
+
   get getUniqueAddressList(){
     return this.normalizeAddressList(this.getResultsList('.th-address')[1]);
   }

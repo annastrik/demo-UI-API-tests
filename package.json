@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/wdio wdio.conf.js"
+    "test": "./node_modules/.bin/wdio wdio.conf.js",
+    "webrest": "./node_modules/.bin/wdio wdio.conf.js --suite webrest",
+    "amazon": "./node_modules/.bin/wdio wdio.conf.js --suite amazon",
+    "tophap": "./node_modules/.bin/wdio wdio.conf.js --suite tophap"
   },
   "repository": {
     "type": "git",
