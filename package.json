@@ -1,5 +1,5 @@
 {
-  "name": "demo-UI-tests",
+  "name": "demo-UI-API-tests",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/annastrik/demo-UI-tests.git"
+    "url": "git+https://github.com/annastrik/demo-UI-API-tests.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/annastrik/demo-UI-tests/issues"
+    "url": "https://github.com/annastrik/demo-UI-API-tests/issues"
   },
-  "homepage": "https://github.com/annastrik/demo-UI-tests#readme",
+  "homepage": "https://github.com/annastrik/demo-UI-API-tests#readme",
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
