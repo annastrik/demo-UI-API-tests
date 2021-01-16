@@ -1,6 +1,5 @@
 import BasePage from './BasePage';
-import { bottomMenuBtnsWithHoverOversTxt, bottomMenuBtns, } from '../../_data/TopHap.com/resources.data';
-import { movingIsFinished } from '../../_data/TopHap.com/resources.data';
+import { bottomMenuBtnsWithHoverOversTxt, bottomMenuBtns, movingIsFinished } from '../../_data/TopHap.com/resources.data';
 
 class MapPage extends BasePage {
 

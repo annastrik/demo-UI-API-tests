@@ -3,7 +3,7 @@ import HomePage from '../../_pages/TopHap.com/HomePage';
 import MapPage from '../../_pages/TopHap.com/MapPage';
 import { bottomMenuBtns } from '../../_data/TopHap.com/resources.data';
 
-describe('HOVER OVER MENUS TEST', () => {
+describe('HOVER OVER ANALYTIC MENU BUTTONS', () => {
   before('should open www.tophap.com', () => {
     HomePage.open();
   });
@@ -12,7 +12,7 @@ describe('HOVER OVER MENUS TEST', () => {
     HomePage.openMapAsTryForFree();
   });
 
-  it('should check all hover over items for all bottom menu buttons', () => {
+  it('all analytic menu`s buttons should have the correct pop-up sub-menus', () => {
     for (let i = 0; i < MapPage.bottomMenuBtnsCount; i++) {
       MapPage.moveToMenuBtn(bottomMenuBtns[i]);
       for (let j = 0; j < MapPage.hoverOverItemsPerBtnCount(i); j++){
