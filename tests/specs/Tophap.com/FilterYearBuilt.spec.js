@@ -5,6 +5,7 @@ import MapPage from '../../_pages/TopHap.com/MapPage';
 import SearchSortFilter from '../../_api/TopHap.com/SearchSortFilterAPI';
 
 const ZIP_CODE = '94024';
+// if you do not want to limit 'from' or 'to' year built set 'Any' in the corresponding field
 const YEAR_FROM = '2000';
 const YEAR_TO = '2015';
 const SEARCH_URL = 'https://api-v2.tophap.com/properties/search';
@@ -30,7 +31,9 @@ describe('FILTER YEAR BUILT TEST', () => {
     const yearBuiltAndUniqueAddress = MapPage.getYearBuiltAndUniqueAddressLists;
     const yearBuiltListOnClient = yearBuiltAndUniqueAddress[0];
     expect(yearBuiltListOnClient.length).above(0);
-    expect(yearBuiltListOnClient.length).eq(yearBuiltListOnClient.filter(el=>el>=YEAR_FROM&&el<=YEAR_TO).length);
+    expect(yearBuiltListOnClient.length).eq(yearBuiltListOnClient.filter(
+      el =>  YEAR_FROM === 'Any'? el <= YEAR_TO : YEAR_TO === 'Any'? el >= YEAR_FROM :
+        el >= YEAR_FROM && el <= YEAR_TO).length);
     uniqueAddressesListOnClient = yearBuiltAndUniqueAddress[1];
   });
 

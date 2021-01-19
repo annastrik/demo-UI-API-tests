@@ -143,8 +143,12 @@ class MapPage extends BasePage {
 
   applyYearBuiltFilter(filterType, yearFrom, yearTo){
     this.openFilterMenu(filterType);
-    this.setYearInFilter(0, yearFrom);
-    if ([...arguments].length === 3 ){
+    if (yearFrom === 'Any'){
+      this.setYearInFilter(1, yearTo);
+    } else if (yearTo === 'Any'){
+      this.setYearInFilter(0, yearFrom);
+    } else {
+      this.setYearInFilter(0, yearFrom);
       this.setYearInFilter(1, yearTo);
     }
     this.waitForResultList();
@@ -152,8 +156,12 @@ class MapPage extends BasePage {
 
   applyLivingAreaFilter(filterType, areaFrom, areaTo){
     this.openFilterMenu(filterType);
-    this.setLivingAreaSqFtInFilter(0, areaFrom);
-    if ([...arguments].length === 3 ){
+    if (areaFrom === 'Any') {
+      this.setLivingAreaSqFtInFilter(1, areaTo);
+    } else if (areaTo === 'Any'){
+      this.setLivingAreaSqFtInFilter(0, areaFrom);
+    } else {
+      this.setLivingAreaSqFtInFilter(0, areaFrom);
       this.setLivingAreaSqFtInFilter(1, areaTo);
     }
     this.waitForResultList();

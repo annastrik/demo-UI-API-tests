@@ -36,7 +36,8 @@ describe('LIVING AREA SQUARE FEET TEST', () => {
     const livingSqFtListOnClient = livingSqFtAndUniqueAddress[0];
     expect(livingSqFtListOnClient.length).above(0);
     expect(livingSqFtListOnClient.length).eq(livingSqFtListOnClient.filter(
-      el => el>=value.AREA_FROM && el<=value.AREA_TO).length);
+      el =>  value.AREA_FROM === 'Any'? el <= value.AREA_TO : value.AREA_TO === 'Any'? el >= value.AREA_FROM :
+        el >= value.AREA_FROM && el <= value.AREA_TO).length);
     uniqueAddressesListOnClient[`${value.AREA_FROM}-${value.AREA_TO}`] = livingSqFtAndUniqueAddress[1];
   });
 
