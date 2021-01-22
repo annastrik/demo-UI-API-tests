@@ -6,8 +6,8 @@
   "scripts": {
     "open-allure": "./node_modules/.bin/allure generate ./reports/allure-results/ --clean && allure open",
     "test": "wdio wdio.conf.js && npm run open-allure",
-    "webrest": "wdio wdio.conf.js --suite webrest",
-    "amazon": "wdio wdio.conf.js --suite amazon",
+    "webrest": "wdio wdio.conf.js --suite webrest && npm run open-allure",
+    "amazon": "wdio wdio.conf.js --suite amazon && npm run open-allure",
     "tophap": "wdio wdio.conf.js --suite tophap && npm run open-allure",
     "test-features": "wdio wdio.cucumber.conf.js && npm run open-allure",
     "tophap-features": "wdio wdio.cucumber.conf.js && npm run open-allure"
