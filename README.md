@@ -36,7 +36,7 @@ Configuration file that WDIO uses by default is `wdio.conf.js`. Information abou
 
 WebdriverIO allows to setup multiple configurations for specific environments. Since there are tests built in both Mocha and Cucumber frameworks in this project, a specific configuration file for Cucumber tests has been created: `wdio.cucumber.conf.js`. Thus all general configurations are set in `wdio.conf.js` file acting as default values and Cucumber-specific values are set in `wdio.cucumber.conf.js` file and overwrite the values in general config file when Cucumber tests are run.
 
-Also the `afterStep` hook to save the screenshots after each test has been added to this project and configured in `wdio.conf.js` and `wdio.cucumber.conf.js` files. The screenshots can be located in the following directory: `./reports/screenshots/*`.
+Also the `afterTest/afterStep` hook to save the screenshots after each test has been added to this project and configured in `wdio.conf.js` and `wdio.cucumber.conf.js` files. The screenshots can be located in the following directory: `./reports/screenshots/*`.
 
 
 ## Layout
@@ -111,3 +111,6 @@ The HTML allure report also opens automatically after all frameworks-specific te
 
 To format the code press `Ctrl+Alt+Y` on the keyboard.
 
+## Notes
+
+Some selectors on Amazon.com and Webstaurantstore.com are subjected to frequent changes, thus the tests located in `./tests/specs/Amazon.com/*` and `./tests/specs/Webstaurantstore.com/*` might fail and require selectors adjustment.
