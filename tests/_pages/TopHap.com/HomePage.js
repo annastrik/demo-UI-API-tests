@@ -3,7 +3,7 @@ import BasePage from './BasePage';
 class HomePage extends BasePage {
 
   get tryForFreeBtn() {
-    return browser.$('//button[text()="Try for free"]');
+    return browser.$('//div[contains(@class,"th-section")]//button[text()="Get Started"]');
   }
 
   get closeFrameBtn() {

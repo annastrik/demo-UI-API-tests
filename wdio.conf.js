@@ -25,9 +25,12 @@ exports.config = {
     tophap: ['./tests/specs/Tophap.com/*spec.js'],
   },
   // Patterns to exclude.
-  exclude: [
-    // 'path/to/excluded/files'
-  ],
+  // exclude: [
+  //   './tests/specs/Tophap.com/FilterLivingSqFt_withParams.spec.js',
+  //   './tests/specs/Tophap.com/SearchByZipCode_withParams.spec.js',
+  //   './tests/specs/Tophap.com/SearchByCity_withParams.spec.js',
+  //   './tests/specs/Tophap.com/SortResultsAZandZA.spec.js',
+  // ],
   //
   // ============
   // Capabilities
@@ -133,9 +136,11 @@ exports.config = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter.html
-  reporters: ['spec'],
-
-
+  reporters: ['spec', ['allure', {
+    outputDir: './reports/allure-results',
+    disableWebdriverStepsReporting: false,
+    disableWebdriverScreenshotsReporting: false,
+  }]],
 
   //
   // Options to be passed to Mocha.
@@ -221,9 +226,10 @@ exports.config = {
   /**
      * Function to be executed after a createHttpPost (in Mocha/Jasmine).
      */
-  // afterTest: function(createHttpPost, context, { error, result, duration, passed, retries }) {
-  // },
-
+  afterTest: function () {
+    const date = Date.now();
+    browser.saveScreenshot(`./reports/screenshots/Chrome - ${date}.png`);
+  }
 
   /**
      * Hook that gets executed after the suite has ended
