@@ -10,7 +10,7 @@
     "amazon": "wdio wdio.conf.js --suite amazon && npm run open-allure",
     "tophap": "wdio wdio.conf.js --suite tophap && npm run open-allure",
     "test-features": "wdio wdio.cucumber.conf.js && npm run open-allure",
-    "tophap-features": "wdio wdio.cucumber.conf.js && npm run open-allure"
+    "tophap-features": "wdio wdio.cucumber.conf.js --suite tophap && npm run open-allure"
   },
   "repository": {
     "type": "git",

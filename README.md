@@ -16,13 +16,13 @@ These tests are developed in JavaScript with [WebDriverIO](http://webdriver.io/)
 -   [Axios](https://www.npmjs.com/package/axios) http library to fetch data from API
 -   [Allure reporter](http://allure.qatools.ru/)
 -   [ESlint](https://eslint.org/) code analysis tool
--   [Github](https://github.com/annastrik/demo-UI-API-tests.git) connection
+-   [Github](https://github.com/annastrik/demo-UI-API-tests-in-Mocha-and-Cucumber.git) connection
 
 ## Getting Started
 
 -   Clone the git repo:
 ```bash
-git clone https://github.com/annastrik/demo-UI-API-tests.git
+git clone https://github.com/annastrik/demo-UI-API-tests-in-Mocha-and-Cucumber.git
 ```
 -   Node.js: install from the [website](https://nodejs.org/en/download/)
 -   Install npm packages: WebdriverIO, Babel, Chai, Axios, Eslint, Cucumber, Allure-reporter; or run the below command to install all dependencies at once:

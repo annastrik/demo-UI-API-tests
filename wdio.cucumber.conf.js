@@ -11,7 +11,6 @@ config.suites = {
 // config.exclude = [
 //   './tests/features/Tophap.com/filterResult.feature',
 //   './tests/features/Tophap.com/searchResult.feature',
-//   './tests/features/Tophap.com/sortResult.feature',
 // ];
 
 config.framework = 'cucumber';
