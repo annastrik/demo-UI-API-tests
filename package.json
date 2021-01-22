@@ -1,5 +1,5 @@
 {
-  "name": "demo-UI-API-tests",
+  "name": "demo-UI-API-tests-in-Mocha-and-Cucumber",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/annastrik/demo-UI-API-tests.git"
+    "url": "git+https://github.com/annastrik/demo-UI-API-tests-in-Mocha-and-Cucumber.git"
   },
   "keywords": [],
   "author": "Anna Strik",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/annastrik/demo-UI-API-tests/issues"
+    "url": "https://github.com/annastrik/demo-UI-API-tests-in-Mocha-and-Cucumber/issues"
   },
-  "homepage": "https://github.com/annastrik/demo-UI-API-tests#readme",
+  "homepage": "https://github.com/annastrik/demo-UI-API-tests-in-Mocha-and-Cucumber#readme",
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
