@@ -36,7 +36,7 @@ Configuration file that WDIO uses by default is `wdio.conf.js`. Information abou
 
 WebdriverIO allows to setup multiple configurations for specific environments. Since there are tests built in both Mocha and Cucumber frameworks in this project, a specific configuration file for Cucumber tests has been created: `wdio.cucumber.conf.js`. Thus all general configurations are set in `wdio.conf.js` file acting as default values and Cucumber-specific values are set in `wdio.cucumber.conf.js` file and overwrite the values in general config file when Cucumber tests are run.
 
-Also the `afterTest/afterStep` hook to save the screenshots after each test has been added to this project and configured in `wdio.conf.js` and `wdio.cucumber.conf.js` files. The screenshots can be located in the following directory: `./reports/screenshots/*`.
+Also the `afterTest/afterStep` hook to save screenshots after each test has been added to this project and configured in `wdio.conf.js` and `wdio.cucumber.conf.js` files. The screenshots are located in the following directory: `./reports/screenshots/*`.
 
 
 ## Layout
@@ -55,7 +55,7 @@ All step definitions (i.e. Gherkin steps implementations, described in `*.featur
 
 Some tests are written in the Cucumber framework using the [Gherkin syntax](https://cucumber.io/docs/gherkin/). That means that the test scenarios are written in plain English text.
 This allows to start with the test process in the early stages of product development and involve non-technical stakeholders.
-Test scenarios are located in `./tests/features/**/*` and step definitions in `./tests/stepDefs/**/*` directory.
+Test scenarios are written in real human language and are located in `./tests/features/**/*` and are linked to implementation details in step definitions files in `./tests/stepDefs/**/*` directory.
 
 ## The Page Object Design Pattern
 
@@ -66,8 +66,8 @@ When the tests are run, the spec files or step definitions files (depending on t
 
 ## API tests
 
-When the automation testing is performed it sometimes might be useful to verify the data that is seen in browser and the data that is fetched from remote API.
-However, the main goal of including API tests in this project, is to demonstrate how to test API requests with help of [Axios](https://www.npmjs.com/package/axios) library in WebdriverIO involving both Mocha and Cucumber BDD frameworks.
+When the automation testing is performed it sometimes might be useful to compare the data that is seen in browser and the data that is fetched from remote API.
+However, the main goal of including API tests in this project, is to demonstrate how to test API requests with help of [Axios](https://www.npmjs.com/package/axios) library in WebdriverIO involving both Mocha and Cucumber BDD frameworks. All results lists obtained on client and fetched from API are verified to have the same data.
 
 ## Run Tests
 
@@ -105,7 +105,7 @@ The [Allure](http://allure.qatools.ru/) Report is generated in two steps:
 ```bash
 npm run open-allure
 ```
-The HTML allure report also opens automatically after all frameworks-specific tests are run at once with the following commands: `npm test` or `npm run test-features`.
+The HTML allure report also opens automatically after suites or all framework-specific tests are run at once with the following commands: `npm test` or `npm run test-features` or `npm run <suitename>`.
 
 ## Eslint
 
