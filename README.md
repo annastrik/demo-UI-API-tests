@@ -41,27 +41,29 @@ Also the `afterTest/afterStep` hook to save screenshots after each test has been
 
 ## Layout
 
-All scripts for tests built in Mocha framework are located in `./tests/specs/**/*` directory.
+All scripts for tests built in Mocha framework are located in `./tests/**/specs/*` directory.
 
-All selectors and methods are located in `./tests/_pages/**/*` directory.
+All selectors and methods are located in `./tests/**/pages/*` directory.
 
-All global variables and helper functions are located in `./tests/_data/**/*` directory.
+All global variables and asserts are located in `./tests/**/fixtures/*` directory.
 
-All scenarios for tests built in Cucumber framework are located in `./tests/features/**/*` directory and have the file ending `*.feature`.
+All helper functions are located in `./tests/**/helper.js` directory.
 
-All step definitions (i.e. Gherkin steps implementations, described in `*.feature` files) are located in `./tests/stepDefs/**/*` directory.
+All scenarios for tests built in Cucumber framework are located in `./tests/**/features/*` directory and have the file ending `*.feature`.
+
+All step definitions (i.e. Gherkin steps implementations, described in `*.feature` files) are located in `./tests/**/stepDefs/*` directory.
 
 ## Cucumber JavaScript framework
 
 Some tests are written in the Cucumber framework using the [Gherkin syntax](https://cucumber.io/docs/gherkin/). That means that the test scenarios are written in plain English text.
 This allows to start with the test process in the early stages of product development and involve non-technical stakeholders.
-Test scenarios are written in real human language and are located in `./tests/features/**/*` and are linked to implementation details in step definitions files in `./tests/stepDefs/**/*` directory.
+Test scenarios are written in real human language and are located in `./tests/**/features/*` and are linked to implementation details in step definitions files in `./tests/**/stepDefs/*` directory.
 
 ## The Page Object Design Pattern
 
 Page Object reduces code duplication and improves test maintenance. It serves as a layer of abstraction between tests and code.
 The code is kept nice and DRY (Don't Repeat Yourself).
-All page elements (selectors, methods) are stored into separate files called Pages in `./tests/_pages/**/*` directory that are represented as classes.
+All page elements (selectors, methods) are stored into separate files called Pages in `./tests/**/pages/*` directory that are represented as classes.
 When the tests are run, the spec files or step definitions files (depending on the framework: Mocha or Cucumber) only call test methods from these pages.
 
 ## API tests
@@ -84,12 +86,12 @@ npm run test-features
 #### Running single Mocha framework's test
 Use the following command:
 ```bash
-wdio wdio.conf.js --spec ./tests/specs/<foldername>/<testname>.spec.js
+wdio wdio.conf.js --spec ./tests/<foldername>/specs/<testname>.spec.js
 ```
 #### Running single Cucumber framework's feature
 Use the following command:
 ```bash
-wdio wdio.conf.js --spec ./tests/features/<foldername>/<testname>.feature
+wdio wdio.conf.js --spec ./tests/<foldername>/features/<testname>.feature
 ```
 #### Running the entire test suite
 Use the following command:
@@ -113,4 +115,4 @@ To format the code press `Ctrl+Alt+Y` on the keyboard.
 
 ## Notes
 
-Some selectors on Amazon.com and Webstaurantstore.com are subjected to frequent changes, thus the tests located in `./tests/specs/Amazon.com/*` and `./tests/specs/Webstaurantstore.com/*` might fail and require selectors adjustment.
+Some selectors on Amazon.com are subjected to frequent changes, thus the tests located in `./tests/Amazon.com/specs/*` might fail and require selectors adjustment.
