@@ -91,7 +91,7 @@ wdio wdio.conf.js --spec ./tests/<foldername>/specs/<testname>.spec.js
 #### Running single Cucumber framework's feature
 Use the following command:
 ```bash
-wdio wdio.conf.js --spec ./tests/<foldername>/features/<testname>.feature
+wdio wdio.cucumber.conf.js --spec ./tests/<foldername>/features/<testname>.feature
 ```
 #### Running the entire test suite
 Use the following command:

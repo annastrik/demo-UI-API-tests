@@ -1,4 +1,4 @@
-import {Given, When, Then} from 'cucumber';
+import {Given, When, Then} from '@cucumber/cucumber';
 import {expect} from 'chai';
 import axios from 'axios';
 import HomePage from '../pages/HomePage';

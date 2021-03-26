@@ -1,11 +1,11 @@
 const { config } = require('./wdio.conf.js');
 
 config.specs = [
-  './tests/TopHap.com/features/*.feature'
+  './tests/**/features/*.feature'
 ];
 
 config.suites = {
-  tophap: ['./tests/TopHap.com/features/*.feature'],
+  tophap: ['./tests/**/features/*.feature'],
 };
 
 // config.exclude = [
@@ -17,7 +17,7 @@ config.framework = 'cucumber';
 
 config.cucumberOpts = {
   requireModule: ['@babel/register'],
-  require: ['./tests/TopHap.com/stepDefs/*.js'],
+  require: ['./tests/**/stepDefs/*.js'],
   backtrace: false,
   failAmbiguousDefinitions: true,
   compiler: ['js:babel-core/register'],
