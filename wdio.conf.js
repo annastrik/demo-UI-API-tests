@@ -25,12 +25,12 @@ exports.config = {
     tophap: ['./tests/TopHap.com/specs/*spec.js'],
   },
   // Patterns to exclude.
-  // exclude: [
-  //   './tests/specs/Tophap.com/FilterLivingSqFt_withParams.spec.js',
-  //   './tests/specs/Tophap.com/SearchByZipCode_withParams.spec.js',
-  //   './tests/specs/Tophap.com/SearchByCity_withParams.spec.js',
-  //   './tests/specs/Tophap.com/SortResultsAZandZA.spec.js',
-  // ],
+  exclude: [
+    './tests/TopHap.com/specs/FilterLivingSqFt_withParams.spec.js',
+    './tests/TopHap.com/specs/SearchByZipCode_withParams.spec.js',
+    './tests/TopHap.com/specs/SearchByCity_withParams.spec.js',
+    './tests/TopHap.com/specs/SortResultsAZandZA.spec.js',
+  ],
   //
   // ============
   // Capabilities
@@ -47,7 +47,7 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same createHttpPost should run tests.
   //
-  maxInstances: 10,
+  maxInstances: 4,
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -58,7 +58,7 @@ exports.config = {
     // maxInstances can get overwritten per capability. So if you have an in-house Selenium
     // grid with only 5 firefox instances available you can make sure that not more than
     // 5 instances get started at a time.
-    maxInstances: 1,
+    maxInstances: 2,
     //
     browserName: 'chrome',
     acceptInsecureCerts: true
@@ -66,7 +66,12 @@ exports.config = {
     // it is possible to configure which logTypes to include/exclude.
     // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
     // excludeDriverLogs: ['bugreport', 'server'],
-  }],
+  },
+  {
+    maxInstances: 1,
+    browserName: 'firefox',
+  },
+  ],
   //
   // ===================
   // Test Configurations
